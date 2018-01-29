@@ -14,6 +14,8 @@
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'js/datatables/datatables.min.css' %}" rel="stylesheet">
+
     <style type="text/css">
      .auto-style1 {
          text-align: center;
@@ -83,12 +85,14 @@
               <div style="padding-left: 800px;padding-bottom: 15px" >
                   <button  class="run1" onclick="acquire()">查询</button>
               </div>
-               <div class="row">
+              <div class="row">
                 	<div class="col-md-6 col-sm-6">
                     	<div class="card" style="width: 950px">
                         	<div class="card-action">对比文件清单</div>
-                        	<div class="card-content">
-                                <table  id="generatedTable" border="1px" style="display: none" >
+                        	<div id="PatsShell" class="col-sm-12 margin card-content" style="margin-top: 15px">
+                              <table id="Pats" class="display" width="100%"></table>
+
+                                <!-- <table  id="generatedTable" border="1px" style="display: none" >
                                         <tr>
                         {#					<th class="auto-style2"></th>#}
                                             <th class="auto-style2">专利公开号</th>
@@ -104,7 +108,7 @@
                                             <td class="auto-style2"><a href="#">查看</a></td>
                                             <td class="auto-style2"><a href="#">下载</a></td>
                                         </tr>
-                                    </table>
+                                    </table> -->
                         	</div>
                     	</div>
 					</div>
@@ -116,44 +120,83 @@
 
   <!-- JS Scripts-->
   <!-- Bootstrap Js -->
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
-     <script type="text/javascript">
-        function acquire()
-        {
-            var list = $('#list').val();
-            $.ajax
-            ({
-                url:"/acquire",
-                type: 'POST',
-                data: {'list':list},
-                success: function (output) {
-                    var output = JSON.parse(output);
-                    console.log(output);
-                    var tr = $("#clonedTr");
-                    var clonedTr = tr.clone();
-                    clonedTr.children("td").each(function (inner_index) {
-                        if (inner_index == 0){
-                            $(this).html(output.num);
+  <script src="{% static 'js/common.js' %}"></script>
+  <script src="{% static 'js/datatables/datatables.min.js' %}"></script>
+  <script type="text/javascript">
+    var List;
+
+
+
+    function acquire()
+    {
+        var list = $('#list').val();
+        $.ajax
+        ({
+            url:"/acquire",
+            type: 'POST',
+            data: {'list':list},
+            success: function (output) {
+              var para = {
+                id: "Pats",
+                data: output,
+                shell: "PatsShell",
+                columns:
+                  [
+                    { data: 0, title: "序号", visible: false},
+                    { data: 1, title: "专利公开号", className: "dt-center"},
+                    { data: 2, title: "摘要"},
+                    { data: 3, title: "源页面", width: "10%", className: "dt-center",
+                      fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        if (sData!="") {
+                          $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">查看</a>")
                         }
-                        else if (inner_index == 1){
-                            $(this).html(output.title);
+                        else {
+                          $(nTd).html("无")
                         }
-{#                        else if (inner_index == 2){#}
-{#                            $(this).html(compare_pats[0].document_sim);#}
-{#                        }#}
-                    });
-                    clonedTr.insertAfter(tr);
-                    $("#generatedTable").append(clonedTr);
-                    tr.hide();
-                    $("#generatedTable").show();
-                    var storage=window.localStorage;
-                    storage.clear();
-                    console.log(storage);
+                      }
+                    },
+                    { data: 4, title: "专利", width: "10%", className: "dt-center",
+                      fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        if (sData!="") {
+                          $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
                         }
-             })
-        }
+                        else {
+                          $(nTd).html("无")
+                        }
+                      }
+                    }
+                  ]
+              }
+              List = initList(List,para);
+              // initListListeners("Tasks",List);
+//                     var output = JSON.parse(output);
+//                     console.log(output);
+//                     var tr = $("#clonedTr");
+//                     var clonedTr = tr.clone();
+//                     clonedTr.children("td").each(function (inner_index) {
+//                         if (inner_index == 0){
+//                             $(this).html(output.num);
+//                         }
+//                         else if (inner_index == 1){
+//                             $(this).html(output.title);
+//                         }
+// {#                        else if (inner_index == 2){#}
+// {#                            $(this).html(compare_pats[0].document_sim);#}
+// {#                        }#}
+//                     });
+//                     clonedTr.insertAfter(tr);
+//                     $("#generatedTable").append(clonedTr);
+//                     tr.hide();
+//                     $("#generatedTable").show();
+//                     var storage=window.localStorage;
+//                     storage.clear();
+//                     console.log(storage);
+            }
+         })
+      }
     </script>
 </body>
 

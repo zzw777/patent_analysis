@@ -14,6 +14,7 @@
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'js/datatables/datatables.min.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -57,7 +58,10 @@
 		
             <div id="page-inner">
                 <div class="row">
-                	<div class="col-md-6 col-sm-6">
+                    <div id="TasksShell" class="col-sm-10 margin" style="margin-top: 15px">
+                      <table id="Tasks" class="display" width="100%"></table>
+                    </div>
+                	<!-- <div class="col-md-6 col-sm-6">
                     	<div class="card" style="width: 950px">
                         	<div class="card-action">对比报告清单</div>
                         	<div class="card-content">
@@ -172,7 +176,7 @@
                                     </tr>
                             </table>
                         </div>
-					</div>
+					</div> -->
                 </div>
             </div>
 			<!-- /. PAGE INNER  -->
@@ -180,12 +184,50 @@
         <!-- /. PAGE WRAPPER  -->
     </div>
 </body>
-    <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-	<!-- Bootstrap Js -->
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- Bootstrap Js -->
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<script src="{% static 'js/datatables/datatables.min.js' %}"></script>
+<script type="text/javascript">
+  
+  var List;
 
 
+  $(document).ready(function(){
+
+    $.ajax({
+        url: "/tasks",
+        success: function(data){
+          var para = {
+            id: "Tasks",
+            data: data,
+            shell: "TasksShell",
+            columns: [
+                  { data: 0, title: "日期", width: "15%", className: "dt-center"},
+                  { data: 1, title: "任务状态", width: "15%", className: "dt-center"},
+                  { data: 2, title: "创新性描述"},
+                  { data: 3, title: "报告", width: "10%", className: "dt-center",
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                      if (sData!="") {
+                        $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
+                      }
+                      else {
+                        $(nTd).html("无")
+                      }
+                    }
+                  }
+                ]
+          }
+          List = initList(List,para);
+          // initListListeners("Tasks",List);
+        }
+    });        
+  })
+        
+
+</script>
 </html>

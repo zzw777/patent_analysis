@@ -44,7 +44,16 @@ def acquire(request):
                 # entry.save()
                 # print(entry.num)
                 # print(entry.title)
-            response = HttpResponse((output), content_type='application/json')
+            data = [
+                ["1","CN103322765A","本发明公开了一种具有物品本发明公开了一种具有物品本发明公开了一种具有物品本发明公开了一种具有物品本发明公开了一种具有物品","url","url"],
+                ["2","CN103322765A","本发明公开了一种具有物品","url","url"],
+                ["3","CN103322765A","本发明公开了一种具有物品","url","url"],
+                ["5","CN103322765A","本发明公开了一种具有物品","url","url"]
+            ]
+
+            response = HttpResponse(json.dumps(data), content_type="application/json")
+            response['Access-Control-Allow-Origin'] = '*'
+            # response = HttpResponse((output), content_type='application/json')
             return response
     except Exception as e:
         print(e)
@@ -89,6 +98,24 @@ def acquire1(request):
 def download1(request):
     return render(request, 'blog/download1.html')
 
+def tasks(request):
+    try:
+        data = [
+            ["2018-01-28","进行中","本发明公开了一种具有物品","url"],
+            ["2018-01-28","已完成","本发明公开了一种具有物品","url"],
+            ["2018-01-28","已完成","本发明公开了一种具有物品","url"],
+            ["2018-01-28","已完成","本发明公开了一种具有物品","url"]
+        ]
+
+        response = HttpResponse(json.dumps(data), content_type="application/json")
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
+
+    except Exception as e:
+        print(e)
+        response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
 
 # def graph(request):
 #     ctx = {}
