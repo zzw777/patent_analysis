@@ -1,0 +1,780 @@
+{
+    "sent_showed_pats": [
+        {
+            "sent_id": 0,
+            "sent_compare_pats": [
+                {
+                    "sim": 0.917,
+                    "pat_id": "CN104501944A"
+                },
+                {
+                    "sim": 0.917,
+                    "pat_id": "CN204330128U"
+                },
+                {
+                    "sim": 0.917,
+                    "pat_id": "CN103200286A"
+                },
+                {
+                    "sim": 0.668,
+                    "pat_id": "CN103890645A"
+                },
+                {
+                    "sim": 0.551,
+                    "pat_id": "US20130100097A1"
+                }
+            ],
+            "novelty_flag": 1
+        },
+        {
+            "sent_id": 1,
+            "sent_compare_pats": [
+                {
+                    "sim": 0.895,
+                    "pat_id": "CN103200286A"
+                },
+                {
+                    "sim": 0.866,
+                    "pat_id": "CN104501944A"
+                },
+                {
+                    "sim": 0.866,
+                    "pat_id": "CN204330128U"
+                },
+                {
+                    "sim": 0.577,
+                    "pat_id": "CN103890645A"
+                }
+            ],
+            "novelty_flag": 1
+        }
+    ],
+    "creativity": "弱",
+    "source_pat_sents_zh": [
+        "一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口",
+        "所述装置还包括覆盖所述取光窗口、将通过所述取光窗口的环境光从入射光线变为垂直光线的楞镜片"
+    ],
+    "source_pat_sents": [
+        "一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口",
+        "所述装置还包括覆盖所述取光窗口、将通过所述取光窗口的环境光从入射光线变为垂直光线的楞镜片"
+    ],
+    "show_creativity_pats": [
+        {
+            "percent": 0.5,
+            "pat_id": "US20130100097A1"
+        },
+        {
+            "percent": 1.0,
+            "pat_id": "CN103890645A"
+        },
+        {
+            "percent": 1.0,
+            "pat_id": "CN204330128U"
+        },
+        {
+            "percent": 1.0,
+            "pat_id": "CN104501944A"
+        },
+        {
+            "percent": 1.0,
+            "pat_id": "CN103200286A"
+        }
+    ],
+    "novelty": "无",
+    "compare_pats": [
+        {
+            "pat_sentences": [
+                "本发明适用于光技术领域，提供了一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口",
+                "所述装置还包括覆盖所述取光窗口、将通过所述取光窗口的环境光从平行光线变为非平行光线的散光镜",
+                "本发明提供的环境亮度测量装置及移动终端可提高环境亮度测量的准确性"
+            ],
+            "document_sim": 0.906,
+            "pat_id": "CN103200286A",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 1.0,
+                    "VerbSim": 0.833,
+                    "AverageSim": 0.917,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.979,
+                    "VerbSim": 0.811,
+                    "AverageSim": 0.895,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.826,
+                    "VerbSim": 0.624,
+                    "AverageSim": 0.725,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.685,
+                    "VerbSim": 0.602,
+                    "AverageSim": 0.644,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.632,
+                    "VerbSim": 0.558,
+                    "AverageSim": 0.595,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.546,
+                    "VerbSim": 0.408,
+                    "AverageSim": 0.477,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "本公开适用于光技术领域，提供了一种环境亮度的测量方法、装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口",
+                "所述装置还包括覆盖所述取光窗口、将通过所述取光窗口的环境光从入射光线变为垂直光线的楞镜片",
+                "本公开提供的环境亮度测量装置及移动终端可提高环境亮度测量的准确性"
+            ],
+            "document_sim": 0.891,
+            "pat_id": "CN104501944A",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 1.0,
+                    "VerbSim": 0.833,
+                    "AverageSim": 0.917,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.857,
+                    "VerbSim": 0.875,
+                    "AverageSim": 0.866,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.905,
+                    "VerbSim": 0.624,
+                    "AverageSim": 0.764,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.56,
+                    "VerbSim": 0.613,
+                    "AverageSim": 0.587,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.632,
+                    "VerbSim": 0.541,
+                    "AverageSim": 0.587,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.613,
+                    "VerbSim": 0.408,
+                    "AverageSim": 0.511,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "本实用新型适用于光技术领域，提供了一种环境亮度的测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口",
+                "所述装置还包括覆盖所述取光窗口、将通过所述取光窗口的环境光从入射光线变为垂直光线的楞镜片",
+                "本实用新型提供的环境亮度测量装置及移动终端可提高环境亮度测量的准确性"
+            ],
+            "document_sim": 0.891,
+            "pat_id": "CN204330128U",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 1.0,
+                    "VerbSim": 0.833,
+                    "AverageSim": 0.917,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.857,
+                    "VerbSim": 0.875,
+                    "AverageSim": 0.866,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.905,
+                    "VerbSim": 0.624,
+                    "AverageSim": 0.764,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.632,
+                    "VerbSim": 0.558,
+                    "AverageSim": 0.595,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.56,
+                    "VerbSim": 0.613,
+                    "AverageSim": 0.587,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.613,
+                    "VerbSim": 0.408,
+                    "AverageSim": 0.511,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "本发明提供用于基于环境光条件而控制显示器的照明的包含编码于计算机存储媒体上的计算机程序的系统、方法及设备",
+                "在一个方面中，一种显示装置可包含显示器及经配置以给所述显示器提供补充光的辅助光源",
+                "所述显示装置可进一步包含传感器系统，所述传感器系统经配置以测量来自宽范围的方向的环境光的漫射照度且经配置以测量来自相对窄范围的方向的所述环境光的定向照度",
+                "所述显示装置可进一步包含控制器，所述控制器经配置以调整所述辅助光源以给所述显示器提供一定量的补充光",
+                "所述补充光量可至少部分地基于所述环境光的所述所测量定向照度及所述所测量漫射照度"
+            ],
+            "document_sim": 0.622,
+            "pat_id": "CN103890645A",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.825,
+                    "VerbSim": 0.511,
+                    "AverageSim": 0.668,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.702,
+                    "VerbSim": 0.579,
+                    "AverageSim": 0.641,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.678,
+                    "VerbSim": 0.53,
+                    "AverageSim": 0.604,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.571,
+                    "VerbSim": 0.583,
+                    "AverageSim": 0.577,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.673,
+                    "VerbSim": 0.452,
+                    "AverageSim": 0.562,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.592,
+                    "VerbSim": 0.486,
+                    "AverageSim": 0.539,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.589,
+                    "VerbSim": 0.416,
+                    "AverageSim": 0.503,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.556,
+                    "VerbSim": 0.444,
+                    "AverageSim": 0.5,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.604,
+                    "VerbSim": 0.384,
+                    "AverageSim": 0.494,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.518,
+                    "VerbSim": 0.449,
+                    "AverageSim": 0.484,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "This disclosure provides systems, methods and apparatus, including computer programs encoded on computer storage media, for controlling lighting of a display based on ambient light conditions",
+                " In one aspect, a display device can include a display and an auxiliary light source configured to provide supplemental light to the display",
+                " The display device further can include a sensor system configured to measure a diffuse illuminance of ambient light from a wide range of directions and configured to measure a directed illuminance of the ambient light from a relatively narrow range of directions",
+                " The display device further can include a controller configured to adjust the auxiliary light source to provide an amount of supplemental light to the display",
+                " The amount of supplemental light can be based at least in part on the measured directed illuminance and the measured diffuse illuminance of the ambient light"
+            ],
+            "document_sim": 0.446,
+            "pat_id": "US20130100097A1",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.462,
+                    "VerbSim": 0.64,
+                    "AverageSim": 0.551,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.392,
+                    "VerbSim": 0.64,
+                    "AverageSim": 0.516,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.362,
+                    "VerbSim": 0.64,
+                    "AverageSim": 0.501,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.617,
+                    "VerbSim": 0.064,
+                    "AverageSim": 0.341,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.62,
+                    "VerbSim": -0.019,
+                    "AverageSim": 0.3,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.419,
+                    "VerbSim": 0.174,
+                    "AverageSim": 0.297,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.433,
+                    "VerbSim": 0.099,
+                    "AverageSim": 0.266,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.328,
+                    "VerbSim": 0.145,
+                    "AverageSim": 0.236,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.253,
+                    "VerbSim": 0.146,
+                    "AverageSim": 0.199,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.354,
+                    "VerbSim": -0.02,
+                    "AverageSim": 0.167,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 4
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "Methods and devices are provided for controlling the brightness of a display for an electronic device based on ambient light conditions",
+                " In one embodiment, an electronic device may employ one or more brightness adjustment profiles for changing the brightness of a display based on ambient light levels and/or the angle of incidence of one or more ambient light sources",
+                " In certain embodiments, one or more ambient light sensors may be designed to perceive the ambient light level differently based on the angle of incidence of a light source",
+                " The perceived ambient light level may then be used to adjust the display brightness based on the one or more brightness adjustment profiles",
+                " In other embodiments, one or more ambient light sensors may be designed to detect the angle of incidence of an ambient light source",
+                " In these embodiments, the detected angle and the ambient light level may be used to adjust the display brightness"
+            ],
+            "document_sim": 0.356,
+            "pat_id": "US20120019152A1",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.533,
+                    "VerbSim": 0.235,
+                    "AverageSim": 0.384,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.332,
+                    "VerbSim": 0.324,
+                    "AverageSim": 0.328,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.466,
+                    "VerbSim": 0.187,
+                    "AverageSim": 0.326,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.377,
+                    "VerbSim": 0.209,
+                    "AverageSim": 0.293,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.446,
+                    "VerbSim": 0.135,
+                    "AverageSim": 0.29,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.5,
+                    "VerbSim": 0.079,
+                    "AverageSim": 0.29,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.255,
+                    "VerbSim": 0.324,
+                    "AverageSim": 0.289,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.239,
+                    "VerbSim": 0.271,
+                    "AverageSim": 0.255,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.209,
+                    "VerbSim": 0.271,
+                    "AverageSim": 0.24,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 5
+                },
+                {
+                    "EntitySim": 0.368,
+                    "VerbSim": 0.095,
+                    "AverageSim": 0.231,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.353,
+                    "VerbSim": 0.079,
+                    "AverageSim": 0.216,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 5
+                },
+                {
+                    "EntitySim": 0.356,
+                    "VerbSim": -0.055,
+                    "AverageSim": 0.151,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "Methods and devices are provided for controlling the brightness of a display for an electronic device based on ambient light conditions",
+                " In one embodiment, an electronic device may employ one or more brightness adjustment profiles for changing the brightness of a display based on ambient light levels and/or the angle of incidence of one or more ambient light sources",
+                " In certain embodiments, one or more ambient light sensors may be designed to perceive the ambient light level differently based on the angle of incidence of a light source",
+                " The perceived ambient light level may then be used to adjust the display brightness based on the one or more brightness adjustment profiles",
+                " In other embodiments, one or more ambient light sensors may be designed to detect the angle of incidence of an ambient light source",
+                " In these embodiments, the detected angle and the ambient light level may be used to adjust the display brightness"
+            ],
+            "document_sim": 0.337,
+            "pat_id": "US8686981B2",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.533,
+                    "VerbSim": 0.235,
+                    "AverageSim": 0.384,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.466,
+                    "VerbSim": 0.187,
+                    "AverageSim": 0.326,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.446,
+                    "VerbSim": 0.135,
+                    "AverageSim": 0.29,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.5,
+                    "VerbSim": 0.079,
+                    "AverageSim": 0.29,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.255,
+                    "VerbSim": 0.324,
+                    "AverageSim": 0.289,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.242,
+                    "VerbSim": 0.324,
+                    "AverageSim": 0.283,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.239,
+                    "VerbSim": 0.271,
+                    "AverageSim": 0.255,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 3
+                },
+                {
+                    "EntitySim": 0.288,
+                    "VerbSim": 0.209,
+                    "AverageSim": 0.249,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.209,
+                    "VerbSim": 0.271,
+                    "AverageSim": 0.24,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 5
+                },
+                {
+                    "EntitySim": 0.368,
+                    "VerbSim": 0.095,
+                    "AverageSim": 0.231,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 4
+                },
+                {
+                    "EntitySim": 0.353,
+                    "VerbSim": 0.079,
+                    "AverageSim": 0.216,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 5
+                },
+                {
+                    "EntitySim": 0.282,
+                    "VerbSim": -0.055,
+                    "AverageSim": 0.114,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "A display device to measure ambient light brightness may include a camera to provide an image",
+                " a controller to detect a face from the image and to measure brightness from a ratio of the iris diameter to the pupil diameter DI/DP",
+                " and an actuator to stepwise change the backlighting of the display device based upon the measured brightness"
+            ],
+            "document_sim": 0.3,
+            "pat_id": "US20140104436A1",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.569,
+                    "VerbSim": 0.183,
+                    "AverageSim": 0.376,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.267,
+                    "VerbSim": 0.183,
+                    "AverageSim": 0.225,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.359,
+                    "VerbSim": 0.087,
+                    "AverageSim": 0.223,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.339,
+                    "VerbSim": 0,
+                    "AverageSim": 0.17,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.263,
+                    "VerbSim": 0.061,
+                    "AverageSim": 0.162,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.237,
+                    "VerbSim": 0,
+                    "AverageSim": 0.119,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "Techniques and apparatuses are disclosed to adjust an intensity of light emitted from front lights and/or to adjust a visual representation of content displayed by an electronic device based at least in part on a measurement of light intensity by a light sensor",
+                " An electronic display may present a visual representation of objects including text and images, which may be subject to changes in size and contrast due to the measured levels of ambient light",
+                " A display controller may also control activation and/or intensity of lights used to illuminate the electronic display based on the measurement of light intensity by the light sensor in addition to or separate from the adjustments to contrast and size of the content"
+            ],
+            "document_sim": 0.3,
+            "pat_id": "US9495915B1",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.45,
+                    "VerbSim": 0.178,
+                    "AverageSim": 0.314,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.301,
+                    "VerbSim": 0.271,
+                    "AverageSim": 0.286,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.358,
+                    "VerbSim": 0.178,
+                    "AverageSim": 0.268,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.32,
+                    "VerbSim": 0.146,
+                    "AverageSim": 0.233,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.228,
+                    "VerbSim": 0.169,
+                    "AverageSim": 0.199,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.314,
+                    "VerbSim": -0.017,
+                    "AverageSim": 0.149,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                }
+            ]
+        },
+        {
+            "pat_sentences": [
+                "A path light that utilizes an ambient light sensor to determine the lighting conditions may experience feedback from its light source if it determines that the lighting conditions are appropriate to illuminate the path light's light source",
+                " The path light, as disclosed herein, may compute an offset value to ascertain the amount of feedback from the light source",
+                " Upon learning the offset value, the path light may subtract the offset value from a detected amount of light to determine whether the lighting conditions of its surroundings still meet a threshold level of darkness for the path light to illuminate"
+            ],
+            "document_sim": 0.214,
+            "pat_id": "US9332616B1",
+            "title": "",
+            "sents_sim": [
+                {
+                    "EntitySim": 0.429,
+                    "VerbSim": 0.139,
+                    "AverageSim": 0.284,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.219,
+                    "VerbSim": 0.086,
+                    "AverageSim": 0.152,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 1
+                },
+                {
+                    "EntitySim": 0.176,
+                    "VerbSim": 0.112,
+                    "AverageSim": 0.144,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 0
+                },
+                {
+                    "EntitySim": 0.184,
+                    "VerbSim": 0.088,
+                    "AverageSim": 0.136,
+                    "source_sent_id": 1,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.133,
+                    "VerbSim": 0.112,
+                    "AverageSim": 0.122,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 2
+                },
+                {
+                    "EntitySim": 0.134,
+                    "VerbSim": -0.025,
+                    "AverageSim": 0.055,
+                    "source_sent_id": 0,
+                    "compare_sent_id": 1
+                }
+            ]
+        }
+    ],
+    "source_pat_sents_en": [
+        "A brightness measuring device and a mobile terminal, the ambient brightness measuring device comprises a light window arranged above the light sensor, the light sensor",
+        " the device also includes a light covering the window, the window of the ambient light from light incident light into light vertical corrugated lens"
+    ]
+}

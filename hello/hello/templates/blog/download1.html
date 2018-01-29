@@ -1,0 +1,191 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>专利创新性检索分析系统</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="wrapper">
+         <nav class="navbar navbar-default top-navbar" role="navigation">
+          <div class="navbar-header">
+            <a class="navbar-brand waves-effect waves-dark" href="index1.html"><i class="large material-icons">insert_chart</i> </a>
+				    <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i></div>
+          </div>
+        </nav>
+
+
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                   <li>
+                        <a class=" waves-effect waves-dark" href="index1.html"><i class="fa fa-dashboard"></i> 主页</a>
+                    </li>
+                    <li>
+                        <a href="acquire1.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 专利文件获取</a>
+                    </li>
+                    <li>
+                        <a href="input1.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 对比分析 </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active-menu waves-effect waves-dark"><i class="fa fa-qrcode"></i> 查询与导出</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+		<!-- /. NAV SIDE  -->
+
+        <div id="page-wrapper" >
+			<div class="header">
+				<ol class="breadcrumb">
+                    <i class="fa fa-home" ></i>
+					<li><a href="#">主页</a></li>
+					<li><a href="#">查询与导出</a></li>
+				</ol> 							
+			</div>
+		
+            <div id="page-inner">
+                <div class="row">
+                	<div class="col-md-6 col-sm-6">
+                    	<div class="card" style="width: 950px">
+                        	<div class="card-action">对比报告清单</div>
+                        	<div class="card-content">
+								<style type="text/css">
+                                        .onecenter{
+                                            text-align: center;
+                                            width: 200px;height: 30px;
+                                        }
+                                </style>
+                                <table border='1'cellspacing="0" cellpadding="0" >
+                                    <thead>
+                                        <tr>
+                                            <th  class='onecenter' ></th>
+                                            <th  class='onecenter' >专利公开号</th>
+                                            <th  class='onecenter' >摘要</th>
+                                            <th  class='onecenter' >权利要求</th>
+                                            <th  class='onecenter' >备注</th>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%" >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>CN103322765A</td>
+                                            <td class='onecenter'>本发明公开了一种具有物品</td>
+                                            <td class='onecenter'>1.一种具有物品保质信息提</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%"  >
+                                                <input type="checkbox" name="checkbox" >
+                                            </td>
+                                            <td class='onecenter'>CN103581433B</td>
+                                            <td class='onecenter'>本发明提供了移动终端及其</td>
+                                            <td class='onecenter'>1.一种与冰箱通信的移动终</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%"  >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>CN103581433A</td>
+                                            <td class='onecenter'>本发明提供了移动终端及其</td>
+                                            <td class='onecenter'>1.一种与冰箱通信的移动终</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <input type="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>CN101498539B</td>
+                                            <td class='onecenter'>本发明的节能电冰箱包括一</td>
+                                            <td class='onecenter'>1.	一种节能电冰箱，其</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%" >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>US20140045433A1</td>
+                                            <td class='onecenter'>A mobile terminal and</td>
+                                            <td class='onecenter'>1. A mobile terminal for</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%" >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>CN101498539B </td>
+                                            <td class='onecenter'>本发明的节能电冰箱包括一</td>
+                                            <td class='onecenter'>1.	一种节能电冰箱，其</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                        <tr>
+                                            <td  width="4%" >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'>TW200707325A </td>
+                                            <td class='onecenter'></td>
+                                            <td class='onecenter'></td>
+                                            <td class='onecenter'>未查询到相关文件</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="4%" >
+                                                <input type="checkbox" name="checkbox" />
+                                            </td>
+                                            <td class='onecenter'> CN103280028A </td>
+                                            <td class='onecenter'>本发明涉及一种可以通过重</td>
+                                            <td class='onecenter'>1.一种重量感应识别储物系</td>
+                                            <td class='onecenter'></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                        	</div>
+                    	</div>
+                        <div class="row">
+                            <table cellpadding="10px" cellspacing="0px" >
+                                    <tr >
+                                        <td>
+                                            <div class="input-group enter" style="padding-left: 750px;">
+                                                <a href="result1">
+                                                    <button   class="run1" >查看</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group enter" >
+                                                <a href="result">
+                                                    <button   class="run1" >导出</button>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            </table>
+                        </div>
+					</div>
+                </div>
+            </div>
+			<!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+</body>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+	<!-- Bootstrap Js -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+
+
+</html>

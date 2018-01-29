@@ -1,0 +1,155 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>比对分析报告</title>
+<style type="text/css">
+.auto-style1 {
+	font-size: medium;
+	font-family: 宋体;
+}
+.auto-style2 {
+	font-size: small;
+	text-align:center;
+	width:250px;
+	height:30px;
+	font-family: 宋体;
+}
+
+.auto-style4 {
+	font-weight: normal;
+	font-size: medium;
+	font-family: 宋体;
+}
+.auto-style5 {
+	font-family: 黑体;
+	font-size: xx-large;
+	text-align: center;
+}
+
+
+.auto-style6 {
+	font-family: 宋体;
+	font-size: small;
+}
+
+
+</style>
+</head>
+<body>
+<div name="page" style="padding-left:250px;padding-right:250px">
+	<div class="page-wrapper">
+		<p class="auto-style5" style="height: 36px"><strong>比对分析报告</strong></p>
+	</div>
+	<div class="page-innner" style="padding-top:50px">
+		<div>
+			<h1 class="auto-style1"><strong>创新性描述:</strong></h1>
+{#            <div style="border: 0px; width:1000px; height:200px; overflow:hidden;padding-right:250px">#}
+            <textarea id="sentences" name="sentences"  style="border:none;width:850px; height:200px" class="auto-style4"></textarea>
+            </div>
+		</div>
+
+		<div>
+			<h2 class="auto-style1" ><strong>对比文件清单:</strong></h2>
+		</div>
+
+		<div style="padding-left:100px;height:330px">
+			<table  id="generatedTable" border="1px" style="display: none">
+				<tr>
+{#					<th class="auto-style2"></th>#}
+					<th class="auto-style2">专利公开号</th>
+					<th class="auto-style2">专利名称</th>
+					<th class="auto-style2">相似度</th>
+				</tr>
+
+                <tr id="clonedTr">
+{#					<td class="auto-style2"></td>#}
+					<td class="auto-style2"></td>
+					<td class="auto-style2"></td>
+					<td class="auto-style2"></td>
+				</tr>
+			</table>
+	 	</div>
+
+		<div>
+			<h3 class="auto-style1" ><strong>创新性结论:</strong></h3>
+		</div>
+		<div style="padding-left:50px">
+			<h4 class="auto-style4"><strong>新颖性：<input id="novelty" name="novelty" style="width: 45px;border:none" /></strong></h4>
+			<h5 class="auto-style4"><strong>创造性：<input id="creativity" name="creativity" style="width: 45px;border:none"/></strong></h5>
+			<h6 class="auto-style4"><strong>结论:</strong></h6>
+			<div class="auto-style4" id="inword" name="inword" style="border: 0px; width:auto; height:200px; overflow:hidden" >
+				<p>&nbsp;&nbsp;&nbsp; 句1的技术特征已被公开号为<input style="width: 210px;border:none" id ="D1" name="D1" />的专利<input style="width: 59px;border:none" id="ab1" name="ab1" />公开，其创造性被该对比专利公开<input id="if1" name="if1" style="border-style: none; width: 37px;" />%，其新颖性被该对比专利公开<input id="if2" name="if2" style="border-style: none; width: 37px;" />%。</p>
+				<p>&nbsp;&nbsp;&nbsp; 句2的技术特征已被公开号为<input style="width: 210px;border:none" id ="D2" name="D2" />的专利<input style="width: 59px;border:none" id="ab2" name="ab2" />公开，其创造性被该对比专利公开<input id="if4" name="if4" style="border-style: none; width: 37px;" />%，其新颖性被该对比专利公开<input id="if5" name="if5" style="border-style: none; width: 37px;" />%。</p>
+			</div>
+		</div>
+		<div style="padding-bottom:100px;text-align:center" >
+			<button id="download" name="download" class="run1" onclick="download()">下载报告</button>
+		</div>
+	</div>
+</div>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var sentences = localStorage.getItem("sentences")
+            var novelty = localStorage.getItem("novelty");
+            var creativity = localStorage.getItem("creativity");
+            var a = localStorage.getItem("compare_pats");
+            var compare_pats=JSON.parse(a);
+            $('#sentences').val(sentences);
+            $('#novelty').val(novelty);
+            $('#creativity').val(creativity);
+            var tr = $("#clonedTr");
+            var clonedTr = tr.clone();
+            clonedTr.children("td").each(function (inner_index) {
+                if (inner_index == 0){
+                    $(this).html(compare_pats[0].pat_id);
+                }
+                else if (inner_index == 1){
+                    $(this).html(compare_pats[0].pat_id);
+                }
+                else if (inner_index == 2){
+                    $(this).html(compare_pats[0].document_sim);
+                }
+            });
+            clonedTr.insertAfter(tr);
+            $("#generatedTable").append(clonedTr);
+            tr.hide();
+            $("#generatedTable").show();
+            var storage=window.localStorage;
+            storage.clear();
+            console.log(storage);
+        })
+{#        function download() {#}
+{#            var ev = document.createEvent("MouseEvents");#}
+{#            ev.initMouseEvent(#}
+{#                "click", true, false, window, 0, 0, 0, 0, 0#}
+{#                , false, false, false, false, 0, null#}
+{#                );#}
+{#            obj.dispatchEvent(ev);#}
+{#        }#}
+{##}
+{#        function export_raw(name, data) {#}
+{#            var urlObject = window.URL || window.webkitURL || window;#}
+{##}
+{#            var export_blob = new Blob([data]);#}
+{##}
+{#            var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")#}
+{#            save_link.href = urlObject.createObjectURL(export_blob);#}
+{#            save_link.download = name;#}
+{#            fake_click(save_link);#}
+{#        }#}
+{##}
+{#        $('a').click(function() {#}
+{#            export_raw('test.html', 'hello world');#}
+{#        });#}
+
+    </script>
+
+</body>
+
+</html>
