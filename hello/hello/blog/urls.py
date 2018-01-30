@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^page2.html$', views.page2, name='page2'),
     url(r'^work$', views.work),
     url(r'^dl_report$', views.dl_report),
-    url(r'^download$', views.download),
+    # url(r'^download$', views.download),
     url(r'^tasks$', views.tasks),
     url(r'^acquire$', views.acquire),
 ]

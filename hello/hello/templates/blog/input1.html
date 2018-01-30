@@ -113,19 +113,20 @@
                 type: 'POST',
                 data: {"word":word, "list":list},
                 success: function (data) {
-                    if (data.msg == 'OK'){
-                        var output = data.output;
-                        localStorage.setItem('sentences',output.source_pat_sents);
-                        localStorage.setItem('novelty',output.novelty);
-                        localStorage.setItem('creativity',output.creativity);
-                        var compare_pats = output.compare_pats;
-                        var d =JSON.stringify(compare_pats);
-                        localStorage.setItem('compare_pats',d);
-                        window.location.href = "page1.html";
-                    }
-                    else {
-                        alert(data.msg);
-                    }
+{#                    if (data.msg == 'OK'){#}
+{#                        var output = data.output;#}
+{#                        localStorage.setItem('sentences',output.source_pat_sents);#}
+{#                        localStorage.setItem('novelty',output.novelty);#}
+{#                        localStorage.setItem('creativity',output.creativity);#}
+{#                        var compare_pats = output.compare_pats;#}
+{#                        var d =JSON.stringify(compare_pats);#}
+{#                        localStorage.setItem('compare_pats',d);#}
+{#                        window.location.href = "page1.html";#}
+{#                    }#}
+{#                    else {#}
+{#                        alert(data.msg);#}
+{#                    }#}
+                    alert(data.msg);
                 }
              })
         }
