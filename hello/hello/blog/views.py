@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from .patent import main_pat
+from .import xwk
 import json
 import re
 from .import models
@@ -90,34 +91,22 @@ def dl_report(request):
         abc = open(os.getcwd() + '/blog/static/123.pdf', 'rb')
         report.report_pdf.put(abc, content_type='pdf')
         report.save()
-        # if request.method == "POST":
-        #     record_id = request.POST.get('record_id')
-        #     task = request.POST.get('task')
-        number = models.report.objects(name='123').first()
-        #     if (task == 'download'):
-        output = number.report_pdf.read()
-        content_type = number.report_pdf.content_type
-        response = StreamingHttpResponse(output, content_type)
-        return response
-            # elif(task == 'view'):
-            #     output = number.report_html.read()
-            #     content_type = number.report_html.content_type
-            #     response = StreamingHttpResponse(output, content_type)
-            #     return response
-            # response['Content-Transfer-Encoding'] = 'Binary'
-            # def file_iterator(file_name, chunk_size=512):
-            #     with open(file_name, 'rb') as f:
-            #         while True:
-            #             c = f.read(chunk_size)
-            #             if c:
-            #                 yield c
-            #             else:
-            #                 break
-            # the_file_name = output
-            # response = StreamingHttpResponse(file_iterator(the_file_name))
-            # response['Content-Type'] = content_type
-            # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
-            # return response
+        if request.method == "POST":
+            record_id = request.POST.get('record_id')
+            print(record_id)
+            task = request.POST.get('task')
+            print(task)
+            number = models.report.objects(name='123').first()
+            if (task == 'download'):
+                output = number.report_pdf.read()
+                content_type = number.report_pdf.content_type
+                response = HttpResponse(output, content_type)
+                return response
+            elif(task == 'view'):
+                output = number.report_html.read()
+                content_type = number.report_html.content_type
+                response = HttpResponse(output, content_type)
+                return response
 
     except Exception as e:
         print(e)
