@@ -61,6 +61,27 @@ def acquire(request):
         response['Access-Control-Allow-Origin'] = '*'
         return response
 
+def download(request):
+    ttt = models.tttModel(name='123')
+    abc = open(os.getcwd()+'/blog/static/123.pdf', 'rb')
+    ttt.report_pdf.put(abc, content_type='pdf')
+    ttt.save()
+    data = models.tttModel.objects(name='123').first()
+    output = data.report_pdf.read()
+    content_type = ttt.report_pdf.content_type
+    def file_iterator(file_name, chunk_size=512):
+        with open(file_name) as f:
+            while True:
+                c = f.read(chunk_size)
+                if c:
+                    yield c
+                else:
+                    break
+    the_file_name = output
+    response = StreamingHttpResponse(file_iterator(the_file_name))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    return response
 
 def work(request):
     try:
