@@ -26,4 +26,13 @@ class tttModel(mongoengine.Document):
     # report_html = mongoengine.FileField()
     report_pdf = mongoengine.FileField()
 
+class report(mongoengine.Document):
+    id = mongoengine.StringField(required=True)
+    source_pat_sents = mongoengine.StringField()
+    compare_pats = mongoengine.StringField()
+    source_sim = mongoengine.StringField()
+    novelty = mongoengine.StringField()
+    creativity = mongoengine.StringField()
+    report_html = mongoengine.FileField()
+    report_pdf = mongoengine.FileField()
 

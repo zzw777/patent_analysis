@@ -2,7 +2,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
-from .import xwk
+from django.http import StreamingHttpResponse
+from wsgiref.util import FileWrapper
 from .patent import main_pat
 import json
 import re
@@ -83,6 +84,47 @@ def download(request):
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
     return response
 
+def dl_report(request):
+    try:
+        report = models.report(name='123')
+        abc = open(os.getcwd() + '/blog/static/123.pdf', 'rb')
+        report.report_pdf.put(abc, content_type='pdf')
+        report.save()
+        # if request.method == "POST":
+        #     record_id = request.POST.get('record_id')
+        #     task = request.POST.get('task')
+        number = models.report.objects(name='123').first()
+        #     if (task == 'download'):
+        output = number.report_pdf.read()
+        content_type = number.report_pdf.content_type
+        response = StreamingHttpResponse(output, content_type)
+        return response
+            # elif(task == 'view'):
+            #     output = number.report_html.read()
+            #     content_type = number.report_html.content_type
+            #     response = StreamingHttpResponse(output, content_type)
+            #     return response
+            # response['Content-Transfer-Encoding'] = 'Binary'
+            # def file_iterator(file_name, chunk_size=512):
+            #     with open(file_name, 'rb') as f:
+            #         while True:
+            #             c = f.read(chunk_size)
+            #             if c:
+            #                 yield c
+            #             else:
+            #                 break
+            # the_file_name = output
+            # response = StreamingHttpResponse(file_iterator(the_file_name))
+            # response['Content-Type'] = content_type
+            # response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+            # return response
+
+    except Exception as e:
+        print(e)
+        response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
+        response['Access-Control-Allow-Origin'] = '*'
+        return response
+
 def work(request):
     try:
         if request.method == "POST":
@@ -137,16 +179,6 @@ def tasks(request):
         response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
         response['Access-Control-Allow-Origin'] = '*'
         return response
-
-# def graph(request):
-#     ctx = {}
-#     form = " "
-#     if request.method == "POST":
-#         data = request.POST['q']
-#         print(os.getcwd())
-#         print ("it worked")
-#
-#     return render(request, 'blog/graph.html', context={'form':form})
 
 def page1(request):
     return render(request, 'blog/page1.html')
