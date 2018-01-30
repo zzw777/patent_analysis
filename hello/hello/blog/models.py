@@ -28,6 +28,7 @@ class tttModel(mongoengine.Document):
 
 class report(mongoengine.Document):
     id = mongoengine.StringField(required=True)
+    name = mongoengine.StringField()
     source_pat_sents = mongoengine.StringField()
     compare_pats = mongoengine.StringField()
     source_sim = mongoengine.StringField()

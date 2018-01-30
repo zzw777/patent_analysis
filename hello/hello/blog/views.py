@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from .patent import main_pat
+from .import xwk
 import json
 import re
 from .import models
