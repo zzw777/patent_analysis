@@ -2,7 +2,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>比对分析报告</title>
+  <title>创新性描述比对分析报告</title>
   <style type="text/css">
     :root {
       --blue: #007bff;
@@ -8973,8 +8973,446 @@
       }
     }
 
+    body {
+      /*background-color: #f8f8f8;*/
+      background-color: #F3F3F3;
+    }
+    #wrapper {
+      width: 100%;
+      height: 100%;
+      background-color: #F3F3F3;
+    }
+    #object-wrapper {
+      margin-top:15px;
+      width: 98.5%;
+      background-color: #F3F3F3;
+    }
+    #page-wrapper {
+      padding: 0 15px;
+      min-height: 768px;
+      background-color: #F3F3F3;
+    }
+    @media (min-width: 768px) {
+      #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 200px;
+        padding: 0 0px;
+        border-left: 1px solid #e7e7e7;
+      }
+    }
+    .navbar-top-links {
+      margin-right: 0;
+    }
+    .navbar-top-links li {
+      display: inline-block;
+    }
+    .navbar-top-links li:last-child {
+      margin-right: 15px;
+    }
+    .navbar-top-links li a {
+      padding: 30px;
+      min-height: 50px;
+    }
+    .navbar-top-links .dropdown-menu li {
+      display: block;
+    }
+    .navbar-top-links .dropdown-menu li:last-child {
+      margin-right: 0;
+    }
+    .navbar-top-links .dropdown-menu li a {
+      padding: 3px 20px;
+      min-height: 0;
+    }
+    .navbar-top-links .dropdown-menu li a div {
+      white-space: normal;
+    }
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+      width: 310px;
+      min-width: 0;
+    }
+    .navbar-top-links .dropdown-messages {
+      margin-left: 5px;
+    }
+    .navbar-top-links .dropdown-tasks {
+      margin-left: -59px;
+    }
+    .navbar-top-links .dropdown-alerts {
+      margin-left: -123px;
+    }
+    .navbar-top-links .dropdown-user {
+      right: 0;
+      left: auto;
+    }
+    .sidebar .sidebar-nav.navbar-collapse {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .sidebar .sidebar-search {
+      padding: 15px;
+    }
+    .sidebar ul li {
+      border-bottom: 1px solid #e7e7e7;
+    }
+    .sidebar ul li a.active {
+      background-color: #eeeeee;
+    }
+    .sidebar .arrow {
+      float: right;
+    }
+    .sidebar .fa.arrow:before {
+      content: "\f104";
+    }
+    .sidebar .active > a > .fa.arrow:before {
+      content: "\f107";
+    }
+    .sidebar .nav-second-level li,
+    .sidebar .nav-third-level li {
+      border-bottom: none !important;
+    }
+    .sidebar .nav-second-level li a {
+      padding-left: 37px;
+    }
+    .sidebar .nav-third-level li a {
+      padding-left: 52px;
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 200px;
+        margin-top: 82px;
+      }
+      .navbar-top-links .dropdown-messages,
+      .navbar-top-links .dropdown-tasks,
+      .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+      }
+    }
+    .btn-outline {
+      color: inherit;
+      background-color: transparent;
+      transition: all .5s;
+    }
+    .btn-primary.btn-outline {
+      color: #428bca;
+    }
+    .btn-success.btn-outline {
+      color: #5cb85c;
+    }
+    .btn-info.btn-outline {
+      color: #5bc0de;
+    }
+    .btn-warning.btn-outline {
+      color: #f0ad4e;
+    }
+    .btn-danger.btn-outline {
+      color: #d9534f;
+    }
+    .btn-primary.btn-outline:hover,
+    .btn-success.btn-outline:hover,
+    .btn-info.btn-outline:hover,
+    .btn-warning.btn-outline:hover,
+    .btn-danger.btn-outline:hover {
+      color: white;
+    }
+    .chat {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .chat li {
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px dotted #999999;
+    }
+    .chat li.left .chat-body {
+      margin-left: 60px;
+    }
+    .chat li.right .chat-body {
+      margin-right: 60px;
+    }
+    .chat li .chat-body p {
+      margin: 0;
+    }
+    .panel .slidedown .glyphicon,
+    .chat .glyphicon {
+      margin-right: 5px;
+    }
+    .chat-panel .panel-body {
+      height: 350px;
+      overflow-y: scroll;
+    }
+    .login-panel {
+      margin-top: 25%;
+    }
+    .flot-chart {
+      display: block;
+      height: 400px;
+    }
+    .flot-chart-content {
+      width: 100%;
+      height: 100%;
+    }
+    table.dataTable thead .sorting,
+    table.dataTable thead .sorting_asc,
+    table.dataTable thead .sorting_desc,
+    table.dataTable thead .sorting_asc_disabled,
+    table.dataTable thead .sorting_desc_disabled {
+      background: transparent;
+    }
+    table.dataTable thead .sorting_asc:after {
+      content: "\f0de";
+      float: right;
+      font-family: fontawesome;
+    }
+    table.dataTable thead .sorting_desc:after {
+      content: "\f0dd";
+      float: right;
+      font-family: fontawesome;
+    }
+    table.dataTable thead .sorting:after {
+      content: "\f0dc";
+      float: right;
+      font-family: fontawesome;
+      color: rgba(50, 50, 50, 0.5);
+    }
+    .btn-circle {
+      width: 30px;
+      height: 30px;
+      padding: 6px 0;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.428571429;
+    }
+    .btn-circle.btn-lg {
+      width: 50px;
+      height: 50px;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-size: 18px;
+      line-height: 1.33;
+    }
+    .btn-circle.btn-xl {
+      width: 70px;
+      height: 70px;
+      padding: 10px 16px;
+      border-radius: 35px;
+      font-size: 24px;
+      line-height: 1.33;
+    }
+    .show-grid [class^="col-"] {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 1px solid #ddd;
+      background-color: #eee !important;
+    }
+    .show-grid {
+      margin: 15px 0;
+    }
+    .huge {
+      font-size: 40px;
+    }
+    .panel-green {
+      border-color: #5cb85c;
+    }
+    .panel-green > .panel-heading {
+      border-color: #5cb85c;
+      color: white;
+      background-color: #5cb85c;
+    }
+    .panel-green > a {
+      color: #5cb85c;
+    }
+    .panel-green > a:hover {
+      color: #3d8b3d;
+    }
+    .panel-red {
+      border-color: #d9534f;
+    }
+    .panel-red > .panel-heading {
+      border-color: #d9534f;
+      color: white;
+      background-color: #d9534f;
+    }
+    .panel-red > a {
+      color: #d9534f;
+    }
+    .panel-red > a:hover {
+      color: #b52b27;
+    }
+    .panel-yellow {
+      border-color: #f0ad4e;
+    }
+    .panel-yellow > .panel-heading {
+      border-color: #f0ad4e;
+      color: white;
+      background-color: #f0ad4e;
+    }
+    .panel-yellow > a {
+      color: #f0ad4e;
+    }
+    .panel-yellow > a:hover {
+      color: #df8a13;
+    }
+    .timeline {
+      position: relative;
+      padding: 20px 0 20px;
+      list-style: none;
+    }
+    .timeline:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      margin-left: -1.5px;
+      background-color: #eeeeee;
+    }
+    .timeline > li {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .timeline > li:before,
+    .timeline > li:after {
+      content: " ";
+      display: table;
+    }
+    .timeline > li:after {
+      clear: both;
+    }
+    .timeline > li:before,
+    .timeline > li:after {
+      content: " ";
+      display: table;
+    }
+    .timeline > li:after {
+      clear: both;
+    }
+    .timeline > li > .timeline-panel {
+      float: left;
+      position: relative;
+      width: 46%;
+      padding: 20px;
+      border: 1px solid #d4d4d4;
+      border-radius: 2px;
+      -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+    }
+    .timeline > li > .timeline-panel:before {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      top: 26px;
+      right: -15px;
+      border-top: 15px solid transparent;
+      border-right: 0 solid #ccc;
+      border-bottom: 15px solid transparent;
+      border-left: 15px solid #ccc;
+    }
+    .timeline > li > .timeline-panel:after {
+      content: " ";
+      display: inline-block;
+      position: absolute;
+      top: 27px;
+      right: -14px;
+      border-top: 14px solid transparent;
+      border-right: 0 solid #fff;
+      border-bottom: 14px solid transparent;
+      border-left: 14px solid #fff;
+    }
+    .timeline > li > .timeline-badge {
+      z-index: 100;
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-left: -25px;
+      border-radius: 50% 50% 50% 50%;
+      text-align: center;
+      font-size: 1.4em;
+      line-height: 50px;
+      color: #fff;
+      background-color: #999999;
+    }
+    .timeline > li.timeline-inverted > .timeline-panel {
+      float: right;
+    }
+    .timeline > li.timeline-inverted > .timeline-panel:before {
+      right: auto;
+      left: -15px;
+      border-right-width: 15px;
+      border-left-width: 0;
+    }
+    .timeline > li.timeline-inverted > .timeline-panel:after {
+      right: auto;
+      left: -14px;
+      border-right-width: 14px;
+      border-left-width: 0;
+    }
+    .timeline-badge.primary {
+      background-color: #2e6da4 !important;
+    }
+    .timeline-badge.success {
+      background-color: #3f903f !important;
+    }
+    .timeline-badge.warning {
+      background-color: #f0ad4e !important;
+    }
+    .timeline-badge.danger {
+      background-color: #d9534f !important;
+    }
+    .timeline-badge.info {
+      background-color: #5bc0de !important;
+    }
+    .timeline-title {
+      margin-top: 0;
+      color: inherit;
+    }
+    .timeline-body > p,
+    .timeline-body > ul {
+      margin-bottom: 0;
+    }
+    .timeline-body > p + p {
+      margin-top: 5px;
+    }
+    @media (max-width: 767px) {
+      ul.timeline:before {
+        left: 40px;
+      }
+      ul.timeline > li > .timeline-panel {
+        width: calc(10%);
+        width: -moz-calc(10%);
+        width: -webkit-calc(10%);
+      }
+      ul.timeline > li > .timeline-badge {
+        top: 16px;
+        left: 15px;
+        margin-left: 0;
+      }
+      ul.timeline > li > .timeline-panel {
+        float: right;
+      }
+      ul.timeline > li > .timeline-panel:before {
+        right: auto;
+        left: -15px;
+        border-right-width: 15px;
+        border-left-width: 0;
+      }
+      ul.timeline > li > .timeline-panel:after {
+        right: auto;
+        left: -14px;
+        border-right-width: 14px;
+        border-left-width: 0;
+      }
+    }
+
     table.mgRowGroup, table.mgRowGroupFolder { border: 1px solid #a0a0a0; margin: 10px 0px 10px 0px; width: 100%; table-layout: fixed; border-collapse: collapse; }
-    table.mgRowGroup td { vertical-align: top; padding: 0; }
+    table.mgRowGroup td { vertical-align: top; padding: 10px 0px 10px 0px; }
     table.mgRowGroupFolder td { vertical-align: top; padding: 1px 0 1px 0; }
     div.IP { width: 2px; height: 1em; float: left; }
 
@@ -8991,36 +9429,56 @@
     div.navigation { margin-top: 14px; font-size: 70%; }
     div.comment { font-weight: normal; color: #000; font-family: Verdana, Arial, Helvetica, sans-serif; background-color: #fcfed8; padding: 2px 5px 2px 5px; border: 1px solid #E3E5C3; margin: 1px 2px 3px 2px; -moz-border-radius: 7px; border-radius: 7px; }
 
-                    span.U1, span.U1 a {float: left; width: auto;color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    span.T1, span.T1 a {float: left; width: auto;color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 20pt; text-decoration: none; }
+    span.T1 a {text-decoration: underline;}
+    td.T1 {color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 20pt; text-decoration: none; }
+    span.U1, span.U1 a {float: left; width: auto;color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.U1 a {text-decoration: underline;}
-    td.U1 {color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.R1, span.R1 a {float: left; width: auto;color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.U1 {color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.R1, span.R1 a {float: left; width: auto;color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.R1 a {text-decoration: underline;}
-    td.R1 {color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.I1, span.I1 a {float: left; width: auto;color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.R1 {color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.I1, span.I1 a {float: left; width: auto;color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.I1 a {text-decoration: underline;}
-    td.I1 {color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.C1, span.C1 a {float: left; width: auto;color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.I1 {color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.C1, span.C1 a {float: left; width: auto;color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.C1 a {text-decoration: underline;}
-    td.C1 {color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    td.nbgC1 {color: #800000; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; background-color: #FFFFFF; }
-    span.U2, span.U2 a {float: left; width: auto;color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.C1 {color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    td.nbgC1 {color: #800000; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; background-color: #FFFFFF; }
+    span.U2, span.U2 a {float: left; width: auto;color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.U2 a {text-decoration: underline;}
-    td.U2 {color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.R2, span.R2 a {float: left; width: auto;color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.U2 {color: #000000; background-color: #FFFFFF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.R2, span.R2 a {float: left; width: auto;color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.R2 a {text-decoration: underline;}
-    td.R2 {color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.I2, span.I2 a {float: left; width: auto;color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.R2 {color: #800000; background-color: #F3E6D8; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.I2, span.I2 a {float: left; width: auto;color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.I2 a {text-decoration: underline;}
-    td.I2 {color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    span.C2, span.C2 a {float: left; width: auto;color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
+    td.I2 {color: #800000; background-color: #D1E8CF; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    span.C2, span.C2 a {float: left; width: auto;color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
     span.C2 a {text-decoration: underline;}
-    td.C2 {color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; }
-    td.nbgC2 {color: #800000; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 9pt; text-decoration: none; background-color: #FFFFFF; }
+    td.C2 {color: #800000; background-color: #DACDE6; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; }
+    td.nbgC2 {color: #800000; font-family: "Consolas"; font-weight: normal; font-style: normal; font-size: 12pt; text-decoration: none; background-color: #FFFFFF; }
 
     span.selected {background-color: #3d80df; color: #fff;}
     span.selected a {background-color: #3d80df; color: #fff; text-decoration: underline;}
     span.symbol {cursor: pointer;}
+
+    .card-header {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    th {
+      text-align: center;
+    }
+
+    td.highlight {
+      background-color: #c7efcf
+    }
+    td.vt {
+      text-align: center;
+      /*vertical-align: middle;*/
+    }
   </style>
 </head>
 
@@ -9029,58 +9487,83 @@
 
   <!-- Navigation -->
   <div class="container" style="text-align: center">
-    <font size="80">比对分析报告</font>
+    <font size="7">创新性描述比对分析报告</font>
   </div>
 
   <div class="container">
-    <div class="row">
-      <div class="col-sm margin" style="margin-top: 15px">
-        创新性结论：
-        <div class="btn-group" role="group" aria-label="Basic example" name="InnovationConclusion">
-          <button type="button" class="btn btn-danger">有</button>
-          <button type="button" class="btn btn-light">无</button>
+    
+
+    <div class="row" style="margin-top: 15px">
+      <div class="col card border-dark mb-3">
+        <div class="card-header">创新性描述：</div>
+        <div class="card-body text-dark">
+          <!-- <h5 class="card-title">Primary card title</h5> -->
+          <p class="card-text">一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。</p>
         </div>
       </div>
-      <div class="col-sm-4 margin" style="margin-top: 15px">
-        新颖性结论：<font name="NoveltyConclusion">有</font>
+    </div>
+
+
+    <div class="row" style="margin-top: 15px">
+      <div class="col card border-dark mb-3">
+        <div class="card-header">对比分析结论：</div>
+        <div class="card-body text-dark">
+          <!-- <h5 class="card-title">Primary card title</h5> -->
+          <font>创新性结论：</font>
+          <button name="InnovationConclusion" type="button" class="btn btn-danger" style="width:10%">有</button>
+          <font style="margin-left:20px">新颖性结论：</font>
+          <button name="NoveltyConclusion" type="button" class="btn btn-danger" style="width:10%">有</button>
+          <font style="margin-left:20px">创造性结论：</font>
+          <div name="CreativityConclusion" class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-danger">&nbsp;</button>
+            <button type="button" class="btn btn-danger">中</button>
+            <button type="button" class="btn btn-outline-danger">&nbsp;</button>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-4 margin" style="margin-top: 15px">
-        创造性结论：<font name="CreativityConclusion">有(强)</font>
+    </div>
+
+    <div class="row" style="margin-top: 15px">
+      <div class="col card border-dark mb-3">
+        <div class="card-header">创新性描述分析结果：</div>
+        <div class="card-body text-dark">
+          <!-- <h5 class="card-title">Primary card title</h5> -->
+          <div class="col-sm-12 margin" style="margin-top: 15px">
+            <p>
+              该创新性描述共包含<font name="TotalTechnicalFeatureNum">4</font>个技术特征，
+              其中技术特征<font name="RevealedTechnicalFeature">1、2、3</font>
+              （共<font name="RevealedTechnicalFeatureNum">3</font>个）被对比专利揭示，
+              技术特征<font name="UnrevealedTechnicalFeature">4</font>
+              （共<font name="UnrevealedTechnicalFeatureNum">1</font>个）未被对比专利揭示。
+            </p>
+
+            <p>
+              该创新性描述<font name="RevealedRatio">75</font>%的技术特征被对比专利揭示，
+              且揭示这些技术特征的最少专利数为<font name="MinimumRevealedPatNum">2</font>，
+              其中每组专利揭示比例分别为：<font name="RevealedDetails">{D1(25%)，D7(50%)}、{D3(25%)，D7(50%)}、{D2(50%)，D5(25%)}、{D2(50%)，D6(25%)}、{D4(50%)，D5(25%)}、{D4(50%)，D6(25%)}</font>，
+              因此判断该创新性描述的新颖性为：<font name="InnovationConclusion">有</font>。
+            </p>
+
+            <p>
+              该创新性描述<font name="HighSimTechnicalFeatureRatio">50</font>%的技术特征与对比专利的技术特征相似度较高，
+              且与这些技术特征相似度较高的最少专利数为<font name="MinimumHighSimPatNum">1</font>，
+              其中每组专利相似度较高的比例分别为：<font name="HighSimDetails">{D1(50%)}</font>，
+              因此判断该创新性描述的创造性为：<font name="CreativityConclusion">有(中)</font>。
+            </p>
+
+            <p>该创新性描述的每个技术特征被对比专利揭示的具体情况如下：</p>
+            <ul name="ComparisonDetails">
+              <li>（1）技术特征“S1的内容”被对比专利中公开号为D1、D2、D3、D4的专利揭示，且与D1、D4的技术特征相似度较高；</li>
+              <li>（2）技术特征“S2的内容”被对比专利中公开号为D2、D4、D7、D8的专利揭示，且与D4、D8的技术特征相似度较高；</li>
+              <li>（3）技术特征“S3的内容”被对比专利中公开号为D5、D6、D7的专利揭示；</li>
+              <li>（4）技术特征“S4的内容”未被对比专利揭示。</li>
+            </ul>
+
+          </div>
+        </div>
       </div>
 
-      <div class="col-sm-12 margin" style="margin-top: 15px">
-        <p>
-          该创新性描述共包含<font name="TotalTechnicalFeatureNum">4</font>个技术特征，
-          其中技术特征<font name="RevealedTechnicalFeature">1、2、3</font>
-          （共<font name="RevealedTechnicalFeatureNum">3</font>个）被对比专利揭示，
-          技术特征<font name="UnrevealedTechnicalFeature">4</font>
-          （共<font name="UnrevealedTechnicalFeatureNum">1</font>个）未被对比专利揭示。
-        </p>
-
-        <p>
-          该创新性描述<font name="RevealedRatio">75</font>%的技术特征被对比专利揭示，
-          且揭示这些技术特征的最少专利数为<font name="MinimumRevealedPatNum">2</font>，
-          其中每组专利揭示比例分别为：<font name="RevealedDetails">{D1(25%)，D7(50%)}、{D3(25%)，D7(50%)}、{D2(50%)，D5(25%)}、{D2(50%)，D6(25%)}、{D4(50%)，D5(25%)}、{D4(50%)，D6(25%)}</font>，
-          因此判断该创新性描述的新颖性为：<font name="InnovationConclusion">有</font>。
-        </p>
-
-        <p>
-          该创新性描述<font name="HighSimTechnicalFeatureRatio">50</font>%的技术特征与对比专利的技术特征相似度较高，
-          且与这些技术特征相似度较高的最少专利数为<font name="MinimumHighSimPatNum">1</font>，
-          其中每组专利相似度较高的比例分别为：<font name="HighSimDetails">{D1(50%)}</font>，
-          因此判断该创新性描述的创造性为：<font name="CreativityConclusion">有(强)</font>。
-        </p>
-
-        <p>该创新性描述的每个技术特征被对比专利揭示的具体情况如下：</p>
-          <ul name="ComparisonDetails">
-            <li>（1）技术特征“S1的内容”被对比专利中公开号为D1、D2、D3、D4的专利揭示，且与D1、D4的技术特征相似度较高；</li>
-            <li>（2）技术特征“S2的内容”被对比专利中公开号为D2、D4、D7、D8的专利揭示，且与D4、D8的技术特征相似度较高；</li>
-            <li>（3）技术特征“S3的内容”被对比专利中公开号为D5、D6、D7的专利揭示；</li>
-            <li>（4）技术特征“S4的内容”未被对比专利揭示。</li>
-          </ul>
-        <p>备注：假设判断技术特征是否被揭示的相似度阈值为0.5，判断技术特征是否相似的相似度阈值为0.6。</p>
-
-      </div>
+      
     </div>
 
 
@@ -9111,11 +9594,12 @@
               <td style="text-align: center">有</td>
               <td style="text-align: center">有(强)</td>
             </tr>
+
           </tbody>
         </table>
       </div>
 
-      <div class="col margin" style="margin-top: 15px">
+      <div class="col-4 margin" style="margin-top: 15px">
         <table class="bordered">
           <tbody>
             <tr>
@@ -9142,7 +9626,7 @@
         </table>
       </div>
 
-      <div class="col margin" style="margin-top: 15px">
+      <div class="col-5 margin" style="margin-top: 15px">
         <table class="bordered">
           <tbody>
             <tr>
@@ -9180,11 +9664,67 @@
     </div>
 
 
-    <div class="row">
+    <div name="PatComparison" class="row">
+      <div class="container" style="text-align: center">
+        <font name="PatComparisonTitle" size="6">专利CN123456该创新性描述的比对报告</font>
+      </div>
 
+      <table class="bordered">
+        <tbody>
+          <tr>
+            <th style="vertical-align: middle;width:4%">序号</th>
+            <th style="vertical-align: middle;width:40%">专利CN123456</th>
+            <th style="vertical-align: middle;width:12%">技术特征相似度</th>
+            <th style="vertical-align: middle;width:4%">序号</th>
+            <th style="vertical-align: middle;width:40%">该创新性描述</th>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td style="text-align:center;">摘要</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="vt">1</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+            <td class="vt">100%</td>
+            <td class="vt">1</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+          </tr>
+          <tr>
+            <td class="vt">2</td>
+            <td>一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+            <td class="vt"></td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td style="text-align:center;">权利要求</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="vt">1</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+            <td class="vt">56%</td>
+            <td class="vt">1</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+          </tr>
+          <tr>
+            <td class="vt">2</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+            <td class="vt">78%</td>
+            <td class="vt">1</td>
+            <td class="highlight">一种环境亮度测量装置及移动终端，所述环境亮度测量装置包括光传感器、设置于所述光传感器上方的取光窗口</td>
+          </tr>
+          
+        </tbody>
+      </table>
     </div>
-
-
   </div>
 
   
