@@ -194,39 +194,70 @@
 <script src="{% static 'js/datatables/datatables.min.js' %}"></script>
 <script type="text/javascript">
   
-  var List;
+    var List;
+
+    function viewreport(record_id,task){
+        var form=$("<form>");//定义一个form表单
+        form.attr("style","display:none");
+        form.attr("target","");
+        form.attr("method","post");
+        form.attr("action","/dl_report");
+        var input1=$("<input>");
+        input1.attr("type","hidden");
+        input1.attr("name","record_id");
+        input1.attr("value",record_id);
+        var input2=$("<input>");
+        input2.attr("type","hidden");
+        input2.attr("name","task");
+        input2.attr("value",task);
+        $("body").append(form);//将表单放置在web中
+        form.append(input1).append(input2);
+        form.submit();
 
 
-  $(document).ready(function(){
+        // $.ajax({
+        //     url: "/dl_report",
+        //     data: {"task":task,"record_id":record_id},
+        //     dataType: "json",
+        //     type: 'POST',
+        //     success: function(data){
+        //         console.log(data);
+        //       // window.location.href = data;
+        //     }
+        // });
+    }
 
-    $.ajax({
-        url: "/tasks",
-        success: function(data){
-          var para = {
-            id: "Tasks",
-            data: data,
-            shell: "TasksShell",
-            columns: [
-                  { data: 0, title: "日期", width: "15%", className: "dt-center"},
-                  { data: 1, title: "任务状态", width: "15%", className: "dt-center"},
-                  { data: 2, title: "创新性描述"},
-                  { data: 3, title: "报告", width: "10%", className: "dt-center",
-                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                      if (sData!="") {
-                        $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
+    $(document).ready(function(){
+
+        $.ajax({
+            url: "/tasks",
+            success: function(data){
+              var para = {
+                id: "Tasks",
+                data: data,
+                shell: "TasksShell",
+                columns: [
+                      { data: 0, title: "序号", visible: false},
+                      { data: 1, title: "日期", width: "15%", className: "dt-center"},
+                      { data: 2, title: "任务状态", width: "15%", className: "dt-center"},
+                      { data: 3, title: "创新性描述"},
+                      { data: 4, title: "报告", width: "10%", className: "dt-center",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                          if (sData!="") {
+                            $(nTd).html("<a onclick=\"viewreport("+oData[0]+",'view')\" target=\"view_window\">查看</a><br><a onclick=\"viewreport("+oData[0]+",'download')\" target=\"view_window\">下载</a>")
+                          }
+                          else {
+                            $(nTd).html("无")
+                          }
+                        }
                       }
-                      else {
-                        $(nTd).html("无")
-                      }
-                    }
-                  }
-                ]
-          }
-          List = initList(List,para);
-          // initListListeners("Tasks",List);
-        }
-    });        
-  })
+                    ]
+              }
+              List = initList(List,para);
+              // initListListeners("Tasks",List);
+            }
+        });        
+      })
         
 
 </script>
