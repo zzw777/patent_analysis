@@ -31,12 +31,12 @@ def acquire(request):
                 data = list()
                 for datum in metadata:
                     data.append([
-                        datum["patent_id"],
-                        datum["patent_no"],
-                        datum["patent_title"],
-                        datum["abstract"],
-                        datum["page_url"],
-                        datum["download_url"]
+                        datum["patent_id"] if datum["patent_id"] != "F" else "无",
+                        datum["patent_no"] if datum["patent_no"] != "F" else "无",
+                        datum["patent_title"] if datum["patent_title"] != "F" else "无",
+                        datum["abstract"] if datum["abstract"] != "F" else "无",
+                        datum["page_url"] if datum["page_url"] != "F" else "无",
+                        datum["download_url"] if datum["download_url"] != "F" else "无"
                     ])
 
             response = HttpResponse(json.dumps(data), content_type="application/json")

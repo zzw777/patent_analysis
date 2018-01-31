@@ -1,13 +1,12 @@
 #coding:utf-8
 import requests
 import bs4
-import threading
 import sqlite3
-con = sqlite3.connect('pdf_test.db',check_same_thread=False)
+import json
+con = sqlite3.connect('pdf_test.db')
 cur = con.cursor()
-
-import os
-print(os.system("pwd"))
+shifou_cn = 1
+shifou_en = 1
 
 result_list = []
 
@@ -66,7 +65,9 @@ def parser_cn(url):
             else:
                 raw = soup
         elif re.status_code == 404:
-            print('该专利不存在')
+            global shifou_cn
+            shifou_cn= 0
+            #print('该专利不存在')
     except Exception as e:
         print(e)
     return abs, cla, dis, raw
@@ -137,7 +138,7 @@ def get_des_e(soup):
 
 def parser_eng(url):
     """有时候会抛出 requests.exceptions.ChunkedEncodingError 这个错误 暂时不知道为什么 但是等一下再连接似乎就解决了 权宜之策"""
-    abs,cla,des,raw = 'F','F','F','F'
+    abs,cla,des,raw,url_download = 'F','F','F','F','F'
     try:
         re = requests.get(url, verify=False)
         if re.status_code == 200:
@@ -152,7 +153,9 @@ def parser_eng(url):
             des = get_des_e(soup)
             raw = soup
         elif re.status_code == 404:
-            print('该专利不存在')
+            global shifou_en
+            shifou_en = 0
+            #print('该专利不存在')
     except Exception as e:
         print(e)
 
@@ -191,7 +194,7 @@ def parser(num):
                         );"""
     if num[0:2] == 'US' or num[0:2] == 'DE':  # 美国 德国 的专利 没有中文
         u_en = 'https://www.google.com/patents/{}?cl=en&hl=zh-CN'.format(num)#根据专利号构造地址
-        C_RAW = 'F'
+        C_RAW = ''
         C_ABS = 'F'
         C_DIS = "F"
         C_CLA = 'F'
@@ -234,13 +237,16 @@ def parser(num):
     #         file.write(rsp_pdf)
     # else:
     #     rsp_pdf = 'F'
+    if shifou_cn or shifou_en :
+        cur.execute(sql_insert,
+                    (title, 'F', num, u_en, str(C_RAW), C_ABS, C_CLA, C_DIS, str(E_RAW), E_ABS, E_CLA, E_DIS,str(url_download)))
+        con.commit()
+        cur.execute('select last_insert_rowid()')
+        id = cur.fetchone()[0]  # 找出刚刚插入的记录是第几个
+    else:
+        page_url = 'F'
+        id = 'F'
 
-    cur.execute(sql_insert,
-                (title, 'None', num, u_en, str(C_RAW), C_ABS, C_CLA, C_DIS, str(E_RAW), E_ABS, E_CLA, E_DIS,str(url_download)))
-    con.commit()
-
-    cur.execute('select last_insert_rowid()')
-    id = cur.fetchone()[0]  # 找出刚刚插入的记录是第几个
     result = {"patent_id": id,
             "patent_no": num,
             "patent_title": title,
@@ -248,7 +254,6 @@ def parser(num):
             "download_url": url_download,
             "abstract": abstract
     }
-
     return result
 
 def parser_list (patentNum_list):
@@ -258,7 +263,7 @@ def parser_list (patentNum_list):
         result_list.append(result)
     return result_list
 
-# print(parser('CN103322765A'))
+print(parser('CN3454354353A'))
 # def zzw():
 #     #num_list = ['CN104501944A', 'CN204330128U', 'US20130100097A1', 'CN103200286A', 'CN103890645A', 'US20120019152A1', 'US20140104436A1', 'US9332616B1', 'US8686981B2', 'US9495915B1']
 #     num_list = ['CN103322765A']
