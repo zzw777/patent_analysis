@@ -72,14 +72,14 @@
           <div id="page-inner">
 
             <div class="row" style="padding: 0 0 0 15px">
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h3 class="panel-title">专利查询</h3></div>
                         <div class="panel-body">
                             <div class="panel panel-success">
                               <div class="panel-heading"><h3 class="panel-title">查询专利列表：</h3></div>
                               <div class="panel-body" style="height:100px">
-                                <textarea id="list" name="list" style="width:100%;height:100%" placeholder="请输入..."></textarea>
+                                <textarea id="list" name="list" style="width:100%;height:100%" placeholder="请输入...">CN104501944A;CN204330128U;CN103200286A</textarea>
                               </div>
                             </div>
 
@@ -90,7 +90,7 @@
             </div>
             
             <div class="row" style="padding: 0 0 0 15px">
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h3 class="panel-title">查询专利列表</h3></div>
                         <div id="List-body" class="panel-body">
@@ -140,6 +140,7 @@
     function acquire()
     {
       var list = $('#list').val();
+      loadingSign("page-wrapper");
       $.ajax
       ({
           url:"/acquire",
@@ -154,8 +155,9 @@
                 [
                   { data: 0, title: "序号", visible: false},
                   { data: 1, title: "专利公开号", className: "dt-center"},
-                  { data: 2, title: "摘要",  className: "dt-left"},
-                  { data: 3, title: "源页面", width: "10%", className: "dt-center",
+                  { data: 2, title: "专利名称",  className: "dt-left"},
+                  { data: 3, title: "摘要",  className: "dt-left"},
+                  { data: 4, title: "源页面", width: "10%", className: "dt-center",
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                       if (sData!="") {
                         $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">查看</a>")
@@ -165,7 +167,7 @@
                       }
                     }
                   },
-                  { data: 4, title: "专利", width: "10%", className: "dt-center",
+                  { data: 5, title: "专利", width: "10%", className: "dt-center",
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                       if (sData!="") {
                         $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
@@ -178,6 +180,7 @@
                 ]
             }
             List = initList(List,para);
+            loadingSignStop("page-wrapper");
           }
        })
     }

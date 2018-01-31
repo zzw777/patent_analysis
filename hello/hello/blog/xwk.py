@@ -1,10 +1,14 @@
-#coding=UTF-8
-import json
+#coding:utf-8
 import requests
 import bs4
 import threading
-import time
-import queue
+import sqlite3
+con = sqlite3.connect('pdf_test.db',check_same_thread=False)
+cur = con.cursor()
+
+import os
+print(os.system("pwd"))
+
 result_list = []
 
 def get_abs(soup):
@@ -138,6 +142,11 @@ def parser_eng(url):
         re = requests.get(url, verify=False)
         if re.status_code == 200:
             soup = bs4.BeautifulSoup(re.content,'html.parser')
+            try:
+                a = soup.find('a',id="appbar-read-patent-link")
+                url_download = 'http:' + a.get('href')
+            except:
+                url_download = "F"
             abs = get_abs_e(soup)
             cla = get_cla_e(soup)
             des = get_des_e(soup)
@@ -147,21 +156,51 @@ def parser_eng(url):
     except Exception as e:
         print(e)
 
-    return abs, cla, des,raw
+    return abs, cla, des,raw,url_download
 
-def parser(i,num):
+def parser(num):
+    sql_insert = """INSERT INTO ALLL_PATENT (
+                            NAME,
+                            COR,
+                            NUM,
+                            URL,
+                            C_RAW,
+                            C_ABS,
+                            C_CLA,
+                            C_DIS,
+                            E_RAW,
+                            E_ABS,
+                            E_CLA,
+                            E_DIS,
+                            PDF
+                        )
+                        VALUES (
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?,
+                            ?
+                        );"""
     if num[0:2] == 'US' or num[0:2] == 'DE':  # 美国 德国 的专利 没有中文
         u_en = 'https://www.google.com/patents/{}?cl=en&hl=zh-CN'.format(num)#根据专利号构造地址
         C_RAW = 'F'
         C_ABS = 'F'
         C_DIS = "F"
         C_CLA = 'F'
-        E_ABS, E_CLA, E_DIS, E_RAW = parser_eng(u_en)
+        E_ABS, E_CLA, E_DIS, E_RAW,url_download = parser_eng(u_en)
     else:
         u_en = 'https://www.google.com/patents/{}?cl=en&hl=zh-CN'.format(num)
         u_cn = 'https://www.google.com/patents/{}?cl=zh&hl=zh-CN'.format(num)
         C_ABS, C_CLA, C_DIS, C_RAW = parser_cn(u_cn)
-        E_ABS, E_CLA, E_DIS, E_RAW = parser_eng(u_en)
+        E_ABS, E_CLA, E_DIS, E_RAW,url_download = parser_eng(u_en)
 
     if E_RAW != 'F':
         title = E_RAW.find('span', class_='patent-title').get_text()
@@ -175,28 +214,87 @@ def parser(i,num):
             title = title.replace(title[s:e + 1], '')
     else:
         title = 'F'
-    di = {'num':num,'C_ABS': C_ABS, 'C_CLA': C_CLA,'C_DIS':C_DIS,'E_ABS':E_ABS,'E_CLA':E_CLA,'E_DIS':E_DIS,'title':title}
-    zzw =json.dumps(di,ensure_ascii=False)
-    result_list.append((i,zzw))
 
-def zzw(num_list):
-    # num_list = ['CN104501944A', 'CN204330128U', 'US20130100097A1', 'CN103200286A', 'CN103890645A', 'US20120019152A1', 'US20140104436A1', 'US9332616B1', 'US8686981B2', 'US9495915B1']
-    num_list_index  =[(i,num) for (i,num) in enumerate(num_list)]
+    #dict_spyresult = {'num':num,'C_ABS': C_ABS, 'C_CLA': C_CLA,'C_DIS':C_DIS,'E_ABS':E_ABS,'E_CLA':E_CLA,'E_DIS':E_DIS,'title':title}
+    if num[0:2] == 'CN':
+        abstract = C_ABS
+        page_url = 'https://www.google.com/patents/{}?cl=zh&hl=zh-CN'.format(num)
+    else:
+        abstract = E_ABS
+        page_url  = 'https://www.google.com/patents/{}?cl=en&hl=zh-CN'.format(num)
 
-    threads = []
+    """
+    找到url的下载地址，下载下来二进制文本，保存在数据库里，需要的时候取出来生成pdf
+    """
+    # if url_download != 'F:':
+    #     real_download_url = 'https://' + url_download.split('viewer?url=')[-1]
+    #     rsp_pdf = requests.get(real_download_url).content
+    #     """写成pdf文档"""
+    #     with open(num + 'pdf', 'wb') as file:
+    #         file.write(rsp_pdf)
+    # else:
+    #     rsp_pdf = 'F'
 
-    for tup in num_list_index:
-        thread = threading.Thread(target=parser,args=(tup[0],tup[1]))
-        threads.append(thread)
-    for t in threads:
-        t.setDaemon(True)
-        t.start()
-    for t in threads:
-        t.join()
+    cur.execute(sql_insert,
+                (title, 'None', num, u_en, str(C_RAW), C_ABS, C_CLA, C_DIS, str(E_RAW), E_ABS, E_CLA, E_DIS,str(url_download)))
+    con.commit()
 
-    result_list.sort()
-    result = [t[1] for t in result_list]
-    result = json.dumps(result,ensure_ascii=False)
+    cur.execute('select last_insert_rowid()')
+    id = cur.fetchone()[0]  # 找出刚刚插入的记录是第几个
+    result = {"patent_id": id,
+            "patent_no": num,
+            "patent_title": title,
+            "page_url": page_url,
+            "download_url": url_download,
+            "abstract": abstract
+    }
+
     return result
 
+def parser_list (patentNum_list):
+    result_list = []
+    for num in  patentNum_list:
+        result = parser(num)
+        result_list.append(result)
+    return result_list
 
+# print(parser('CN103322765A'))
+# def zzw():
+#     #num_list = ['CN104501944A', 'CN204330128U', 'US20130100097A1', 'CN103200286A', 'CN103890645A', 'US20120019152A1', 'US20140104436A1', 'US9332616B1', 'US8686981B2', 'US9495915B1']
+#     num_list = ['CN103322765A']
+#     num_list_index  =[(i,num) for (i,num) in enumerate(num_list)]
+#
+#     threads = []
+#
+#     for tup in num_list_index:
+#         thread = threading.Thread(target=parser,args=(tup[0],tup[1]))
+#         threads.append(thread)
+#     for t in threads:
+#         t.setDaemon(True)
+#         t.start()
+#     for t in threads:
+#         t.join()
+#
+#     result_list.sort()
+#
+#     result = [t[1] for t in result_list]
+#     result = json.dumps(result)
+#     return result
+# res = zzw()
+# res = json.loads(res)
+# num = res[0]['num']
+# print(num)
+# sql_creat = """CREATE TABLE PDF_TEST(
+#          ID INTEGER PRIMARY KEY NOT NULL,
+#          NUM TEXT NOT NULL,
+#          URL TEXT NOT NULL,
+#          C_RAW TEXT NOT NULL,
+#          C_ABS TEXT NOT NULL,
+#          C_CLA TEXT NOT NULL,
+#          C_DIS TEXT NOT NULL,
+#          E_RAW TEXT NOT NULL,
+#          E_ABS TEXT NOT NULL,
+#          E_CLA TEXT NOT NULL,
+#          E_DIS TEXT NOT NULL，
+#          PDF   BLOB NOT NULL
+#          ); """

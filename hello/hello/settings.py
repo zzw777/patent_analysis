@@ -63,9 +63,14 @@ WSGI_APPLICATION = 'hello.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASES = {
-
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(PROJECT_DIR, 'pdf_test.db'),
+    # }
 }
+
 
 
 # Password validation

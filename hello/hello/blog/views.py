@@ -5,7 +5,7 @@ import os
 import re
 from django.http import HttpResponse
 from django.shortcuts import render
-from .import models
+from . import models
 from . import xwk
 
 
@@ -23,16 +23,21 @@ def input1(request):
 def acquire(request):
     try:
         if request.method == 'POST':
-            data1 = request.POST.get('list')
-            print(data1)
-            list = re.split(',|，|\n| ', data1)
-            list = [l for l in list if len(l) != 0]
-            data = [
-                ["1","CN103322765A","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url","url"],
-                ["2","CN103322765A","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url","url"],
-                ["3","CN103322765A","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url","url"],
-                ["5","CN103322765A","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url","url"]
-            ]
+            metadata = request.POST.get('list')
+            if len(metadata) == 0:
+                data = list()
+            else:
+                metadata = xwk.parser_list(metadata.split(";"))
+                data = list()
+                for datum in metadata:
+                    data.append([
+                        datum["patent_id"],
+                        datum["patent_no"],
+                        datum["patent_title"],
+                        datum["abstract"],
+                        datum["page_url"],
+                        datum["download_url"]
+                    ])
 
             response = HttpResponse(json.dumps(data), content_type="application/json")
             response['Access-Control-Allow-Origin'] = '*'
@@ -77,7 +82,7 @@ def work(request):
         if request.method == "POST":
             sorc_word = request.POST.get('word')
             pat_list = request.POST.get('list')
-            print(sorc_word )
+            print(sorc_word)
             print(pat_list)
             # pat_list = re.split(',|，|\n| ', pat_list)
             # pat_list = [l for l in pat_list if len(l) != 0]
@@ -85,7 +90,7 @@ def work(request):
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
                 # os.system("cd D:\Github\patent_analysis\hello\hello")
-                print(os.system("cd"))
+                print(os.system("pwd"))
                 # os.system("python arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
@@ -110,7 +115,7 @@ def download1(request):
 
 def tasks(request):
     try:
-        report = models.report()
+        report = models.reports()
         id = report.id
         time = report.time
         abs = report.source_pat_sents
@@ -120,15 +125,11 @@ def tasks(request):
         else:
             statement = '进行中'
         data = [
-<<<<<<< HEAD
-            [id, time, statement, abs, url],
-=======
             ["1","2018-01-28","进行中","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
             ["2","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
             ["3","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["4","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"]
->>>>>>> 8dd15c5dd1f623836cb02173c17fb5c34c2339a3
-        ]
+            ["4","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"]]
+
 
         response = HttpResponse(json.dumps(data), content_type="application/json")
         response['Access-Control-Allow-Origin'] = '*'
