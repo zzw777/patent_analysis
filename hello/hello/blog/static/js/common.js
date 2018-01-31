@@ -88,10 +88,10 @@ function initList(List,para){
     List.destroy();
   }
   var List = $('#'+para.id).DataTable({
-    data: para.data,
-    columns: para.columns,
-    dom: 'frtip',
-    order: [[ 0, "desc" ]],
+    "data": para.data,
+    "columns": para.columns,
+    "dom": 'flrtip',
+    "order": [[ 0, "desc" ]],
   });
 
   return List;
@@ -109,7 +109,7 @@ function initLocalList(List,para){
   var List = $('#'+para.id).DataTable({
       data: para.dataset,
       columns: para.columns,
-      dom: 'rtip',
+      dom: 'lfrtip',
   })
 
   return List;
