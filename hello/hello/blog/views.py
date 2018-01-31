@@ -3,12 +3,9 @@
 import json
 import os
 import re
-import time
-
 from django.http import HttpResponse
 from django.shortcuts import render
-
-from . import models
+from .import models
 from . import xwk
 
 
@@ -49,7 +46,7 @@ def acquire(request):
 
 def dl_report(request):
     try:
-        report = models.report(name='123')
+        report = models.reports(name='123')
         abc = open(os.getcwd() + '/blog/static/123.pdf', 'rb')
         report.report_pdf.put(abc, content_type='pdf')
         report.save()
@@ -58,7 +55,7 @@ def dl_report(request):
             print(record_id)
             task = request.POST.get('task')
             print(task)
-            number = models.report.objects(name='123').first()
+            number = models.reports.objects(name='123').first()
             if (task == 'download'):
                 output = number.report_pdf.read()
                 content_type = number.report_pdf.content_type
@@ -85,10 +82,11 @@ def work(request):
             # pat_list = re.split(',|，|\n| ', pat_list)
             # pat_list = [l for l in pat_list if len(l) != 0]
             # list = ',|，|\n| '.join(pat_list)
-            print(list)
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
+                # os.system("cd D:\Github\patent_analysis\hello\hello")
+                print(os.system("cd"))
+                # os.system("python arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
@@ -112,14 +110,17 @@ def download1(request):
 
 def tasks(request):
     try:
-        report = models.report(id='')
+        report = models.report()
+        id = report.id
         time = report.time
         abs = report.source_pat_sents
+        url = report.report_html
+        if report.report_pdf != "":
+            statement = '已完成'
+        else:
+            statement = '进行中'
         data = [
-            ["1","2018-01-28","进行中","本发明公开了一种具有物品","url"],
-            ["2","2018-01-28","已完成","本发明公开了一种具有物品","url"],
-            ["3","2018-01-28","已完成","本发明公开了一种具有物品","url"],
-            ["4","2018-01-28","已完成","本发明公开了一种具有物品","url"]
+            [id, time, statement, abs, url],
         ]
 
         response = HttpResponse(json.dumps(data), content_type="application/json")

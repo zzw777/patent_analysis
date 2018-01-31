@@ -4,14 +4,12 @@ from django.db import models
 
 import mongoengine
 
-
-class report(mongoengine.Document):
-    id = mongoengine.IntField(required=True)
-    name = mongoengine.StringField()
+class reports(mongoengine.Document):
+    id = mongoengine.IntField()
     time = mongoengine.StringField()
     source_pat_sents = mongoengine.DictField()
     compare_pats = mongoengine.ListField()
-    source_sim = mongoengine.ListField()
+    innovative = mongoengine.StringField()
     novelty = mongoengine.StringField()
     creativity = mongoengine.StringField()
     report_html = mongoengine.FileField()
