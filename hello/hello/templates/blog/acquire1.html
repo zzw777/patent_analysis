@@ -37,7 +37,7 @@
     <div id="wrapper">
          <nav class="navbar navbar-default top-navbar" role="navigation">
           <div class="navbar-header">
-            <a class="navbar-brand waves-effect waves-dark" href="index1.html"><i class="large material-icons">insert_chart</i> </a>
+            <a class="navbar-brand waves-effect waves-dark" href="index1.html"><i class="large material-icons">insert_chart</i><font size="4">专利创新性分析系统</font></a>
 				    <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i></div>
           </div>
         </nav>
@@ -52,11 +52,9 @@
                     <li>
                         <a href="#" class="active-menu waves-effect waves-dark"><i class="fa fa-desktop"></i> 专利文件获取</a>
                     </li>
+                    <!-- <li><a href="input1.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 对比分析 </a></li> -->
                     <li>
-                        <a href="input1.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 对比分析 </a>
-                    </li>
-                    <li>
-                        <a href="download1.html" class=" waves-effect waves-dark"><i class="fa fa-qrcode"></i> 查询与导出</a>
+                        <a href="download1.html" class=" waves-effect waves-dark"><i class="fa fa-qrcode"></i> 专利对比分析</a>
                     </li>
                 </ul>
             </div>
@@ -72,6 +70,43 @@
           </div>
 
           <div id="page-inner">
+
+            <div class="row" style="padding: 0 0 0 15px">
+                <div class="col-sm-10">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3 class="panel-title">专利查询</h3></div>
+                        <div class="panel-body">
+                            <div class="panel panel-success">
+                              <div class="panel-heading"><h3 class="panel-title">查询专利列表：</h3></div>
+                              <div class="panel-body" style="height:100px">
+                                <textarea id="list" name="list" style="width:100%;height:100%" placeholder="请输入..."></textarea>
+                              </div>
+                            </div>
+
+                            <button id="submit" type="submit" class="btn btn-primary run1" style="width:10%;float:right" onclick="acquire()">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="padding: 0 0 0 15px">
+                <div class="col-sm-10">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3 class="panel-title">查询专利列表</h3></div>
+                        <div id="List-body" class="panel-body">
+                            <div id="PatsShell" class="col-sm-12 margin card-content" style="margin-top: 15px">
+                              <table id="Pats" class="display" width="100%"></table>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+          <!-- <div id="page-inner">
               <div class="row">
                   <div class="col-md-4 col-sm-4" >
                       <div class="card blue-grey darken-1" style="width: 950px">
@@ -85,35 +120,7 @@
               <div style="padding-left: 800px;padding-bottom: 15px" >
                   <button  class="run1" onclick="acquire()">查询</button>
               </div>
-              <div class="row">
-                	<div class="col-md-6 col-sm-6">
-                    	<div class="card" style="width: 950px">
-                        	<div class="card-action">对比文件清单</div>
-                        	<div id="PatsShell" class="col-sm-12 margin card-content" style="margin-top: 15px">
-                              <table id="Pats" class="display" width="100%"></table>
-
-                                <!-- <table  id="generatedTable" border="1px" style="display: none" >
-                                        <tr>
-                        {#					<th class="auto-style2"></th>#}
-                                            <th class="auto-style2">专利公开号</th>
-                                            <th class="auto-style2">专利名称</th>
-                                            <th class="auto-style2">查看详情</th>
-                                            <th class="auto-style2"></th>
-                                        </tr>
-
-                                        <tr id="clonedTr">
-                        {#					<td class="auto-style2"></td>#}
-                                            <td class="auto-style2"></td>
-                                            <td class="auto-style2"></td>
-                                            <td class="auto-style2"><a href="#">查看</a></td>
-                                            <td class="auto-style2"><a href="#">下载</a></td>
-                                        </tr>
-                                    </table> -->
-                        	</div>
-                    	</div>
-					</div>
-               </div>
-          </div>
+          </div> -->
      </div>
     <!-- /. WRAPPER  -->
 
@@ -132,71 +139,52 @@
 
     function acquire()
     {
-        var list = $('#list').val();
-        $.ajax
-        ({
-            url:"/acquire",
-            type: 'POST',
-            data: {'list':list},
-            success: function (output) {
-              var para = {
-                id: "Pats",
-                data: output,
-                shell: "PatsShell",
-                columns:
-                  [
-                    { data: 0, title: "序号", visible: false},
-                    { data: 1, title: "专利公开号", className: "dt-center"},
-                    { data: 2, title: "摘要"},
-                    { data: 3, title: "源页面", width: "10%", className: "dt-center",
-                      fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                        if (sData!="") {
-                          $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">查看</a>")
-                        }
-                        else {
-                          $(nTd).html("无")
-                        }
+      var list = $('#list').val();
+      $.ajax
+      ({
+          url:"/acquire",
+          type: 'POST',
+          data: {'list':list},
+          success: function (output) {
+            var para = {
+              id: "Pats",
+              data: output,
+              shell: "PatsShell",
+              columns:
+                [
+                  { data: 0, title: "序号", visible: false},
+                  { data: 1, title: "专利公开号", className: "dt-center"},
+                  { data: 2, title: "摘要",  className: "dt-left"},
+                  { data: 3, title: "源页面", width: "10%", className: "dt-center",
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                      if (sData!="") {
+                        $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">查看</a>")
                       }
-                    },
-                    { data: 4, title: "专利", width: "10%", className: "dt-center",
-                      fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                        if (sData!="") {
-                          $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
-                        }
-                        else {
-                          $(nTd).html("无")
-                        }
+                      else {
+                        $(nTd).html("无")
                       }
                     }
-                  ]
-              }
-              List = initList(List,para);
-              // initListListeners("Tasks",List);
-//                     var output = JSON.parse(output);
-//                     console.log(output);
-//                     var tr = $("#clonedTr");
-//                     var clonedTr = tr.clone();
-//                     clonedTr.children("td").each(function (inner_index) {
-//                         if (inner_index == 0){
-//                             $(this).html(output.num);
-//                         }
-//                         else if (inner_index == 1){
-//                             $(this).html(output.title);
-//                         }
-// {#                        else if (inner_index == 2){#}
-// {#                            $(this).html(compare_pats[0].document_sim);#}
-// {#                        }#}
-//                     });
-//                     clonedTr.insertAfter(tr);
-//                     $("#generatedTable").append(clonedTr);
-//                     tr.hide();
-//                     $("#generatedTable").show();
-//                     var storage=window.localStorage;
-//                     storage.clear();
-//                     console.log(storage);
+                  },
+                  { data: 4, title: "专利", width: "10%", className: "dt-center",
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                      if (sData!="") {
+                        $(nTd).html("<a href=\""+sData+"\" target=\"view_window\">下载</a>")
+                      }
+                      else {
+                        $(nTd).html("无")
+                      }
+                    }
+                  }
+                ]
             }
-         })
-      }
+            List = initList(List,para);
+          }
+       })
+    }
+
+    $(document).ready(function(){
+        acquire();
+    })
     </script>
 </body>
 
