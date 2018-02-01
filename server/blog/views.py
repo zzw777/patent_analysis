@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from . import models
 from . import xwk
+import __init__
 
 
 def index1(request):
@@ -94,6 +95,7 @@ def work(request):
                 print(os.system("cd"))
                 os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
                 # print(sys.path)
+
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
