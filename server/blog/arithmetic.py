@@ -5,7 +5,6 @@ import urllib
 import json
 import bs4
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 from .import models
 import datetime
 import urllib
@@ -121,15 +120,32 @@ def pat_search(output):
     return (pat_id_list)
 
 def main():
-    word = '123'
-    list = '123'
+    try:
+        options, args,sec_id = getopt.getopt(sys.argv[1:], "w:l:i", ["word=", "list=", "id="])
+    except getopt.GetoptError:
+        sys.exit()
+
+    word = ''
+    list = ''
+    sec_id = ''
+    for option, value in options:
+        if option in ("-w", "--word"):
+            word = value
+            print(word)
+        if option in ("-l", "--list"):
+            list = value.split(";")
+            print(list)
+        if option in ("-i", "--id"):
+            sec_id = value
+            print(sec_id)
+
     output = get_result(word, list, 'en')
 
     mongodb = connect("patent")
 
 
-    monreport = models.reports()
-    monreport.source_pat_sents = {'zh':output['source_pat_sents_zh'],'en':['source_pat_sents_zh']}
+    monreport = models.reports(id = sec_id)
+    monreport.source_pat_sents = {output['source_pat_sents']}
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
     monreport.time = nowTime
     patent_list = pat_search(output)
