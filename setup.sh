@@ -1,0 +1,11 @@
+pip3 install django==1.10.6
+pip3 install mongoengine==0.15.0
+pip3 install networkx==2.0
+pip3 install graphviz==0.8.1
+pip3 install pycorenlp==0.3.0
+pip3 install pyltp==0.2.1
+pip3 install gensim==3.2.0
+pip3 install numpy==1.13.3
+pip3 install requests==2.18.4
+pip3 install bs4==0.0.1
+#pip3 install hashlib
