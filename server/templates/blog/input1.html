@@ -1,0 +1,137 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>专利创新性检索分析系统</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet" />
+
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand waves-effect waves-dark" href="index1.html"><i class="large material-icons">insert_chart</i> </a>
+                <div id="sideNav" class="waves-effect waves-dark" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+        </nav>
+
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a href="index1.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主页</a>
+                    </li>
+                    <li>
+                        <a href="acquire1.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 专利文件获取</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i> 对比分析 </a>
+                    </li>
+                    <li>
+                        <a href="download1.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 查询与导出</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+        <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+        <div class="header">
+            <ol class="breadcrumb">
+                <i class="fa fa-home" ></i>
+                <li><a href="#">主页</a></li>
+                <li><a href="#">对比分析</a></li>
+            </ol>
+        </div>
+        <div id="page-inner">
+{#            <div class="row" >#}
+{#                <form class="navbar-form navbar-left" role="search"   method="POST" enctype="multipart/form-data" >#}
+{#                    <table cellpadding="10px" cellspacing="0px" >#}
+{#                        <div class="input-group" >#}
+{#                            <span class="input-group-addon">创新型描述</span>#}
+{#                            <input style="width:180px;height:35px " id="fileToUpload1" name="file1" type="file" class="input"/>#}
+{#                        </div>#}
+{#                        <div class="input-group">#}
+{#                            <span class="input-group-addon">对比文件</span>#}
+{#                            <input  style="width:180px;height:35px "  id="fileToUpload2" name="file2" type="file" class="input"/>#}
+{#                        </div>#}
+{#                    </table>#}
+{#                </form>#}
+{#            </div>#}
+       	    <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="card teal" style="width: 400px">
+                        <div class="card-content white-text">
+                            <h4><i class="fa fa-retweet"></i> 创新性描述</h4>
+                            <textarea id="word" name="word" style="width:350px;height:250px;" placeholder="请输入..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4" style="padding-left: 100px">
+                    <div class="card blue-grey darken-1" style="width: 400px">
+                        <div class="card-content white-text">
+                            <h4><i class="fa fa-bars"></i> 对比文件清单</h4>
+                            <textarea id="list" name="list" style="width:350px;height:250px; overflow:auto" placeholder="请输入..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group enter" style="padding-left: 700px">
+                <button id="submit" type="submit"  class="run1" onclick="login()">分析</button>
+            </div>
+        </div>
+
+{#        <iframe src="page1.html" id="page1" style="width: 1000px;height: 500px" ></iframe>#}
+    </div>
+
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+	<!-- Bootstrap Js -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+    <script type="text/javascript">
+        function login()
+        {
+            var word = $('#word').val();
+            var list = $('#list').val();
+            $.ajax
+            ({
+                url:"/work",
+                type: 'POST',
+                data: {"word":word, "list":list},
+                success: function (data) {
+{#                    if (data.msg == 'OK'){#}
+{#                        var output = data.output;#}
+{#                        localStorage.setItem('sentences',output.source_pat_sents);#}
+{#                        localStorage.setItem('novelty',output.novelty);#}
+{#                        localStorage.setItem('creativity',output.creativity);#}
+{#                        var compare_pats = output.compare_pats;#}
+{#                        var d =JSON.stringify(compare_pats);#}
+{#                        localStorage.setItem('compare_pats',d);#}
+{#                        window.location.href = "page1.html";#}
+{#                    }#}
+{#                    else {#}
+{#                        alert(data.msg);#}
+{#                    }#}
+                    alert(data.msg);
+                }
+             })
+        }
+    </script>
+
+</body>
+
+</html>
