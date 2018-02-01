@@ -4,11 +4,13 @@ import os
 import urllib
 import json
 import bs4
-import models
+import sys
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
+from .import models
 import datetime
 import urllib
 import getopt
-import sys
+
 from bs4 import BeautifulSoup
 
 def transition_flag(output):
@@ -121,7 +123,7 @@ def main():
     word = '123'
     list = '123'
     output = get_result(word, list, 'en')
-    monreport = models.reports
+    monreport = models.reports()
     monreport.source_pat_sents = {'zh':output['source_pat_sents_zh'],'en':['source_pat_sents_zh']}
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
     monreport.time = nowTime
@@ -305,6 +307,16 @@ def main():
         new_tr_tag2.append(new_td_tag)
         new_tr_tag2.append(new_td_tag)
 
+        new_td_tag = soup.new_tag("td")
+        new_tr_tag2.append(new_td_tag)
+        new_tr_tag2.append(new_td_tag)
+        new_tr_tag2.append(new_td_tag)
+
+        new_td_tag = soup.new_tag("td")
+        new_tr_tag2.append(new_td_tag)
+        new_tr_tag2.append(new_td_tag)
+        new_tr_tag2.append(new_td_tag)
+
         new_tbody_tag.append(new_tr_tag2)
 
         (abs_list,cla_list) =  compare_pats_search(output,index,0.5)
@@ -375,6 +387,16 @@ def main():
         new_td_tag = soup.new_tag("td")
         new_td_tag.attrs = {'style': 'text-align:center'}
         new_td_tag.append('权利要求')
+        new_tr_tag5.append(new_td_tag)
+
+        new_td_tag = soup.new_tag("td")
+        new_tr_tag5.append(new_td_tag)
+        new_tr_tag5.append(new_td_tag)
+        new_tr_tag5.append(new_td_tag)
+
+        new_td_tag = soup.new_tag("td")
+        new_tr_tag5.append(new_td_tag)
+        new_tr_tag5.append(new_td_tag)
         new_tr_tag5.append(new_td_tag)
 
         new_td_tag = soup.new_tag("td")
