@@ -9,6 +9,8 @@ from django.shortcuts import render
 from . import models
 from . import xwk
 import __init__
+from mongoengine import connect
+
 
 
 def index1(request):
@@ -119,22 +121,12 @@ def download1(request):
 
 def tasks(request):
     try:
-        report = models.reports()
-        id = report.id
-        time = report.time
-        abs = report.source_pat_sents
-        url = report.report_html
-        if report.report_pdf != "":
-            statement = '已完成'
-        else:
-            statement = '进行中'
-        data = [
-            # [id, time, statement, abs, url],
-            ["1","2018-01-28","进行中","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["2","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["3","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["4","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"]
-        ]
+        data = list()
+        with connect("patent") as mongodb:
+            for datum in models.reports.objects():
+                data.append([datum.id,datum.time,"已完成" if datum.report_html else "进行中",datum.source_pat_sents,datum.report_html])
+        mongodb.close()
+        
         response = HttpResponse(json.dumps(data), content_type="application/json")
         response['Access-Control-Allow-Origin'] = '*'
         return response
