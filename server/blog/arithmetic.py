@@ -4,10 +4,22 @@ import os
 import urllib
 import json
 import bs4
+import models
+import datetime
 import urllib
 import getopt
 import sys
 from bs4 import BeautifulSoup
+
+def transition_flag(output):
+	compare_pats=output['compare_pats']
+	language=output['language_flag']
+	flag=0
+	for pat in compare_pats:
+		if pat['language_flag']!=language:
+			flag=1
+			break
+	return flag
 
 def get_result(paragraph1, pat_id, language='en'):
 	outputfile = open(os.getcwd()+'/output.json', 'r', encoding="utf8")
@@ -109,15 +121,29 @@ def main():
     word = '123'
     list = '123'
     output = get_result(word, list, 'en')
+    monreport = models.reports
+    monreport.source_pat_sents = {'zh':output['source_pat_sents_zh'],'en':['source_pat_sents_zh']}
+    nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
+    monreport.time = nowTime
+    patent_list = pat_search(output)
+    monreport.compare_pats = patent_list
+
+
     File = open('report.htm', encoding='UTF-8')
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
 
-    source_pat_sents_zh = soup.find('p',{'name':"source_pat_sents_zh"})
-    source_pat_sents_en = soup.find('p', {'name': "source_pat_sents_en"})
-    source_pat_sent_en = ''.join(s for s in output['source_pat_sents_en'])
-    source_pat_sent_zh = ''.join(s for s in output['source_pat_sents_zh'])
-    source_pat_sents_zh.string = str(source_pat_sent_zh)
-    source_pat_sents_en.string = str(source_pat_sent_en)
+    flag = transition_flag(output)
+    if flag == '1':
+        source_pat_sents_zh = soup.find('p',{'name':"source_pat_sents_zh"})
+        source_pat_sents_en = soup.find('p', {'name': "source_pat_sents_en"})
+        source_pat_sent_en = ''.join(s for s in output['source_pat_sents_en'])
+        source_pat_sent_zh = ''.join(s for s in output['source_pat_sents_zh'])
+        source_pat_sents_zh.string = str(source_pat_sent_zh)
+        source_pat_sents_en.string = str(source_pat_sent_en)
+    else:
+        source_pat_sents_zh = soup.find('p', {'name': "source_pat_sents_zh"})
+        source_pat_sent_zh = ''.join(s for s in output['source_pat_sents'])
+        source_pat_sents_zh.string = str(source_pat_sent_zh)
 
     inno = output['conclusion']['innovative']
     if inno == '无':
@@ -417,8 +443,11 @@ def main():
         new_table_tag.append(new_tbody_tag)
         PatComparison.append(new_table_tag)
     fin_html = soup.prettify()
-    with open('new1.html','wb') as f:
+    with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
+        re_html = open('report_html','rb')
+        monreport.report_html.put(re_html,content_type='html')
+    monreport.save()
 
 
 
