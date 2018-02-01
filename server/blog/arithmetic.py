@@ -10,6 +10,7 @@ import urllib
 import getopt
 import sys
 from bs4 import BeautifulSoup
+from mongoengine import connect
 
 def transition_flag(output):
 	compare_pats=output['compare_pats']
@@ -121,15 +122,18 @@ def main():
     word = '123'
     list = '123'
     output = get_result(word, list, 'en')
-    monreport = models.reports
+
+    mongodb = connect("patent")
+
+    monreport = models.reports()
     monreport.source_pat_sents = {'zh':output['source_pat_sents_zh'],'en':['source_pat_sents_zh']}
     nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
     monreport.time = nowTime
     patent_list = pat_search(output)
     monreport.compare_pats = patent_list
 
-
-    File = open('report.htm', encoding='UTF-8')
+    os.system("pwd")
+    File = open('./templates/blog/report.htm', encoding='UTF-8')
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
 
     flag = transition_flag(output)
@@ -445,10 +449,10 @@ def main():
     fin_html = soup.prettify()
     with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
-        re_html = open('report_html','rb')
+        re_html = open('report_html.html','rb')
         monreport.report_html.put(re_html,content_type='html')
     monreport.save()
-
+    mongodb.close()
 
 
 

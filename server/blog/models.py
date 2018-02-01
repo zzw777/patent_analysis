@@ -10,5 +10,6 @@ class reports(mongoengine.Document):
     source_pat_sents = mongoengine.DictField()
     compare_pats = mongoengine.ListField()
     report_html = mongoengine.FileField()
+    # report_html = mongoengine.fields.GridFSProxy()
     report_pdf = mongoengine.FileField()
 

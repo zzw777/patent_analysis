@@ -1,7 +1,6 @@
 
 import os
-from mongoengine import connect
-connect("patent")
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,11 +64,10 @@ WSGI_APPLICATION = 'hello.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': None,
-    }
+    'default' : {
+      'ENGINE' : None,
+   }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

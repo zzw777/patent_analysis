@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from . import models
 from . import xwk
+import __init__
 
 
 def index1(request):
@@ -91,8 +92,7 @@ def work(request):
             # list = ',|，|\n| '.join(pat_list)
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python D:\\Github\\patent_analysis\\server\\blog\\arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
-                # print(sys.path)
+                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
