@@ -6,8 +6,10 @@ import re
 import sys
 from django.http import HttpResponse
 from django.shortcuts import render
+from mongoengine import connect
 from . import models
 from . import xwk
+import datetime
 import __init__
 
 
@@ -90,11 +92,19 @@ def work(request):
             # pat_list = re.split(',|，|\n| ', pat_list)
             # pat_list = [l for l in pat_list if len(l) != 0]
             # list = ',|，|\n| '.join(pat_list)
+
+            mongodb = connect("patent")
+
+            monreport = models.reports()
+            monreport.source_pat_sents = sorc_word
+            monreport.compare_pats = pat_list
+            nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
+            monreport.time = nowTime
+            monreport.report_html = ''
+            monreport.save()
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                print(os.system("cd"))
-                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l" + pat_list)
-                # print(sys.path)
+                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l" + pat_list + "-i" + monreport.id)
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
@@ -104,6 +114,7 @@ def work(request):
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
+            mongodb.close()
     except Exception as e:
         print(e)
         response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
@@ -119,25 +130,17 @@ def download1(request):
 
 def tasks(request):
     try:
-        report = models.reports()
-        id = report.id
-        time = report.time
-        abs = report.source_pat_sents
-        url = report.report_html
-        if report.report_pdf != "":
-            statement = '已完成'
-        else:
-            statement = '进行中'
         data = [
             # [id, time, statement, abs, url],
-            ["1","2018-01-28","进行中","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["2","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["3","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
-            ["4","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"]
+            # ["1","2018-01-28","进行中","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
+            # ["2","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
+            # ["3","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"],
+            # ["4","2018-01-28","已完成","一种发送物品信息的方法，其特征在于，所述方法包括：获取储物箱的储物箱信息；根据所述储物箱信息，获取所述储物箱储藏的物品的物品信息，所述物品的物品信息至少包括所述物品的物品描述信息；发送所述物品的物品信息给用户对应的移动终端。","url"]
         ]
         response = HttpResponse(json.dumps(data), content_type="application/json")
         response['Access-Control-Allow-Origin'] = '*'
         return response
+
 
     except Exception as e:
         print(e)
