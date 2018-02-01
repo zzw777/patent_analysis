@@ -88,9 +88,8 @@ def work(request):
     try:
         if request.method == "POST":
             sorc_word = request.POST.get('word')
-            pat_list = request.POST.get('list')
-            print(sorc_word)
-            print(pat_list)
+            pat = request.POST.get('list')
+            pat_list = request.POST.get('list').split(";")
             # pat_list = re.split(',|，|\n| ', pat_list)
             # pat_list = [l for l in pat_list if len(l) != 0]
             # list = ',|，|\n| '.join(pat_list)
@@ -100,13 +99,17 @@ def work(request):
             monreport = models.reports()
             monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
-            nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
-            monreport.time = nowTime
-            monreport.report_html = ''
+            monreport.time = datetime.datetime.now().strftime('%Y-%m-%d')
+            # monreport.report_html = ""
             monreport.save()
+
+
+
+            print(monreport)
+
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l" + pat_list + "-i" + monreport.id)
+                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l " + pat + " -i " + str(models.reports.objects()[-1].id))
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
@@ -116,7 +119,10 @@ def work(request):
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
+
             mongodb.close()
+
+
     except Exception as e:
         print(e)
         response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
@@ -135,7 +141,7 @@ def tasks(request):
         data = list()
         with connect("patent") as mongodb:
             for datum in models.reports.objects():
-                data.append([datum.id,datum.time,"已完成" if datum.report_html else "进行中",datum.source_pat_sents,datum.report_html])
+                data.append([str(datum.id),datum.time,"已完成" if datum.report_html else "进行中",datum.source_pat_sents,datum.report_html])
         mongodb.close()
 
         response = HttpResponse(json.dumps(data), content_type="application/json")
