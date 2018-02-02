@@ -14,9 +14,7 @@ import datetime
 import __init__
 from mongoengine import connect
 import time
-import multiprocessing
-sys.path.append("./blog/")
-from arithmetic import updateReport
+
 
 def index1(request):
     return render(request, 'blog/index1.html')
@@ -96,26 +94,19 @@ def work(request):
             monreport.status = "进行中"
             monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
+            nowTime = nowTime.strftime('%Y-%m-%d %M:%S')
             
 
-            monreport.time = nowTime.strftime('%Y-%m-%d')
-            with open('./templates/blog/report.html','rb') as f:
-                monreport.report_html.put(f,content_type='html')
-                monreport.report_pdf.put(f,content_type='html')
+            monreport.time = nowTime.strftime('%Y-%m-%d %M:%S')
+            # with open('./templates/blog/report.html','rb') as f:
+            #     monreport.report_html.put(f,content_type='html')
+            #     monreport.report_pdf.put(f,content_type='html')
             monreport.save()
             mongodb.close()
 
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                
-                updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # print("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # def analyze():
-                #     os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # service = multiprocessing.Process(name='analyze',target=analyze)
-                # service.start()
-                # service.join()
+                os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f') + " -t" + nowTime)
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'

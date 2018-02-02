@@ -64,14 +64,14 @@
                                 <div class="panel panel-success">
                                   <div class="panel-heading"><h3 class="panel-title">创新性描述：</h3></div>
                                   <div class="panel-body" style="height:100px">
-                                    <textarea id="word" name="word" style="width:100%;height:100%" placeholder="请输入...">一种调整显示内容的方法包括：接收用户输入的重力感应角度调整指令，所述重力感应角度调整指令使重力感应角度改变指定角度；根据调整后的重力感应角度显示内容，使得所述内容的显示方向和所述用户的双眼方向之间的夹角小于预设角度。</textarea>
+                                    <textarea id="word" name="word" style="width:100%;height:100%" placeholder="请输入..."></textarea>
                                   </div>
                                 </div>
 
                                 <div class="panel panel-success">
                                   <div class="panel-heading"><h3 class="panel-title">对比文件清单：</h3></div>
                                   <div class="panel-body" style="height:100px">
-                                    <textarea id="list" name="list" style="width:100%; height:100%; overflow:auto" placeholder="请输入...">CN103512547A;CN103512547B;CN101030982A;CN101488030A;CN101673173A;US20110292009A1;US7164432B1</textarea>
+                                    <textarea id="list" name="list" style="width:100%; height:100%; overflow:auto" placeholder="请输入..."></textarea>
                                   </div>
                                 </div>
                                 <button id="submit" type="submit" class="btn btn-primary" style="width:130px;float:right" onclick="SubmitTask()">建立分析任务</button>
@@ -182,8 +182,7 @@
                       { data: 3, title: "创新性描述", className: "dt-left"},
                       { data: 4, title: "报告", width: "10%", className: "dt-center",
                         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                            console.log(oData);
-                          if (oData[2]=="已完成") {
+                          if (sData!="") {
                             $(nTd).html("<a onclick=\"viewreport('"+oData[0]+"','view')\" target=\"view_window\">查看</a><br><a onclick=\"viewreport('"+oData[0]+"','download')\" target=\"view_window\">下载</a>")
                           }
                           else {
@@ -192,33 +191,6 @@
                         }
                       }
                     ]
-                //     ,
-                // dom: 'Bfrtip',
-                // buttons: [
-                //   {
-                //     text: 'Add',
-                //     action: function () {
-                //       var paraModal = {
-                //         "id":"Modal",
-                //         "size":"modal-dialog modal-lg",
-                //         "title":"Add new presentation",
-                //         "parent":$("#"+para.shell),
-                //         "subject":[
-                //           creAddPresentation($("<div>",{class:"col-sm-12 margin",style:"margin-top:10px"}),"SubList")
-                //         ],
-                //         "buttonID":"AddPresentation",
-                //         "button":"Add",
-                //         "EVENT":
-                //           function AddPresentation(){
-                            
-                //           }
-                //       };
-                //       initModal(paraModal);
-                //       MeetingDate = initMeetingDate();
-                //       CountCombobox = initCombobox(CountPara);
-                //       SpeakerCombobox = initCombobox(SpeakerPara);
-                //     }
-                //   }]
                 }
                 List = initList(List,para);
                 // initListListeners("Tasks",List);
