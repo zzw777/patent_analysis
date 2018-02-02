@@ -18,8 +18,11 @@ from mongoengine import connect
 
 sys.path.append("../apps/patent/")
 sys.path.append("./hello/")
-from main_pat import get_result
-from settings import *
+from main_pat import main
+import gensim
+
+
+
 
 
 def transition_flag(output):
@@ -134,32 +137,32 @@ def pat_search(output):
         pat_id_list.append(compare_pats['pat_id'])
     return (pat_id_list)
 
-def main():
-    try:
-        options, args = getopt.getopt(sys.argv[1:], "w:l:s:", ["word", "list", "sec_id"])
-    except getopt.GetoptError:
-        sys.exit()
+def updateReport(word,LIST,sec_id):
+    # try:
+    #     options, args = getopt.getopt(sys.argv[1:], "w:l:s:", ["word", "list", "sec_id"])
+    # except getopt.GetoptError:
+    #     sys.exit()
 
-    word = ''
-    LIST = ''
-    sec_id = ''
+    # word = ''
+    LIST = LIST.split(";")
+    # sec_id = ''
+    google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+    model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
+    # for option, value in options:
+    #     if option in ("-w", "--word"):
+    #         word = value
+    #         print(word)
+    #     elif option in ("-l", "--list"):
+    #         LIST = value.split(";")
+    #         print(LIST)
+    #     elif option in ("-s", "--sec_id"):
+    #         sec_id = value
+    #         print(sec_id)
 
-    for option, value in options:
-        if option in ("-w", "--word"):
-            word = value
-            # print(word)
-        elif option in ("-l", "--list"):
-            LIST = value.split(";")
-            # print(LIST)
-        elif option in ("-s", "--sec_id"):
-            sec_id = value
-            # print(sec_id)
-
-    output = get_result(word, LIST, {"en":google_model,"zh":model_zh})
-    print(output)
+    # output = get_result(word, LIST, QUEUE.get())
+    output = main(word, LIST, {"en":google_model,"zh":model_zh})
     # output = get_result_test(word, LIST, 'en')
 
-    
 
     File = open('./templates/blog/report.html', encoding='UTF-8')
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
@@ -178,12 +181,12 @@ def main():
         source_pat_sents_zh.string = str(source_pat_sent_zh)
 
     inno = output['conclusion']['innovative']
-    if inno == '无':
+    if inno == '无创新性':
         innovative = soup.find('button',{'name':"InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class']='btn btn-outline-danger'
 
-    elif inno == '有':
+    elif inno == '有创新性':
         innovative = soup.find('button', {'name': "InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class'] = 'btn btn-danger'
@@ -191,10 +194,10 @@ def main():
     nov = output['conclusion']['novelty']
     novelty = soup.find('button', {'name': "NoveltyConclusion"})
     novelty.string = str(nov)
-    if nov == '无':
+    if nov == '无新颖性':
         novelty['class'] = 'btn btn-outline-danger'
 
-    elif nov == '有':
+    elif nov == '有新颖性':
         novelty['class'] = 'btn btn-danger'
 
     cre = output['conclusion']['creativity']
@@ -504,10 +507,11 @@ def main():
     mongodb = connect("patent")
     newreport = models.reports()
     newreport.source_pat_sents = output['source_pat_sents']
+    newreport.status = "已完成"
     newreport.compare_pats = pat_search(output)
     with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
-    os.system("wkhtmltopdf report_html.html report_pdf.pdf")
+    os.system("wkhtmltopdf --disable-smart-shrinking --page-size A4 --zoom 0.8 report_html.html report_pdf.pdf")
     with open('report_html.html','rb') as re_html:
         newreport.report_html.put(re_html,content_type='html')
     with open('report_pdf.pdf','rb') as re_pdf:
@@ -516,17 +520,19 @@ def main():
     monreport = models.reports.objects(_id=sec_id)
     monreport.update(
         # source_pat_sents=newreport.source_pat_sents, 
-        status="已完成",
+        status=newreport.status,
         compare_pats=newreport.compare_pats,
         # report_html=newreport.report_html,
         # report_pdf=newreport.report_pdf,
         )
     mongodb.close()
 
+    print("complete")
 
 
 
-if __name__ == "__main__": main()
+
+if __name__ == "__main__": updateReport()
 
 
 

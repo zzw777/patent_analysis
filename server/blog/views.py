@@ -14,7 +14,9 @@ import datetime
 import __init__
 from mongoengine import connect
 import time
-
+import multiprocessing
+sys.path.append("./blog/")
+from arithmetic import updateReport
 
 def index1(request):
     return render(request, 'blog/index1.html')
@@ -105,7 +107,15 @@ def work(request):
 
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
+                
+                updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'))
+                # print("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
+                # os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
+                # def analyze():
+                #     os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
+                # service = multiprocessing.Process(name='analyze',target=analyze)
+                # service.start()
+                # service.join()
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
