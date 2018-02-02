@@ -29,8 +29,8 @@
       <file leaf-file-name="arithmetic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/arithmetic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="496" column="0" lean-forward="true" selection-start-line="496" selection-start-column="0" selection-end-line="496" selection-end-column="0" />
+            <state relative-caret-position="280">
+              <caret line="492" column="47" lean-forward="false" selection-start-line="492" selection-start-column="47" selection-end-line="492" selection-end-column="47" />
               <folding>
                 <element signature="e#15#24#0" expanded="true" />
               </folding>
@@ -52,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/templates/blog/report.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="232">
-              <caret line="9665" column="0" lean-forward="true" selection-start-line="9665" selection-start-column="0" selection-end-line="9665" selection-end-column="0" />
+              <caret line="9665" column="0" lean-forward="false" selection-start-line="9665" selection-start-column="0" selection-end-line="9665" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#!!top" expanded="true" />
               </folding>
@@ -64,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/hello/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="351">
-              <caret line="13" column="62" lean-forward="true" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="63" />
+              <caret line="13" column="62" lean-forward="false" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="63" />
               <folding>
                 <element signature="e#639#680#0" expanded="true" />
               </folding>
@@ -75,10 +75,14 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="112" column="61" lean-forward="false" selection-start-line="112" selection-start-column="61" selection-end-line="112" selection-end-column="61" />
+            <state relative-caret-position="275">
+              <caret line="115" column="61" lean-forward="false" selection-start-line="115" selection-start-column="61" selection-end-line="115" selection-end-column="61" />
               <folding>
                 <element signature="e#15#26#0" expanded="true" />
+                <marker date="1517543736229" expanded="true" signature="5135:5323" ph="..." />
+                <marker date="1517543736229" expanded="true" signature="5135:5536" ph="..." />
+                <marker date="1517543736229" expanded="true" signature="5352:5536" ph="..." />
+                <marker date="1517543736229" expanded="true" signature="5557:5603" ph="..." />
               </folding>
             </state>
           </provider>
@@ -88,7 +92,7 @@
         <entry file="file://$PROJECT_DIR$/blog/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -207,7 +211,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-11" />
     <option name="y" value="-11" />
     <option name="width" value="1942" />
@@ -512,7 +516,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -676,7 +680,7 @@
     <entry file="file://$PROJECT_DIR$/blog/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -686,7 +690,7 @@
     <entry file="file://$PROJECT_DIR$/hello/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
-          <caret line="13" column="62" lean-forward="true" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="63" />
+          <caret line="13" column="62" lean-forward="false" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="63" />
           <folding>
             <element signature="e#639#680#0" expanded="true" />
           </folding>
@@ -695,10 +699,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blog/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="112" column="61" lean-forward="false" selection-start-line="112" selection-start-column="61" selection-end-line="112" selection-end-column="61" />
+        <state relative-caret-position="275">
+          <caret line="115" column="61" lean-forward="false" selection-start-line="115" selection-start-column="61" selection-end-line="115" selection-end-column="61" />
           <folding>
             <element signature="e#15#26#0" expanded="true" />
+            <marker date="1517543736229" expanded="true" signature="5135:5323" ph="..." />
+            <marker date="1517543736229" expanded="true" signature="5135:5536" ph="..." />
+            <marker date="1517543736229" expanded="true" signature="5352:5536" ph="..." />
+            <marker date="1517543736229" expanded="true" signature="5557:5603" ph="..." />
           </folding>
         </state>
       </provider>
@@ -706,7 +714,7 @@
     <entry file="file://$PROJECT_DIR$/templates/blog/report.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
-          <caret line="9665" column="0" lean-forward="true" selection-start-line="9665" selection-start-column="0" selection-end-line="9665" selection-end-column="0" />
+          <caret line="9665" column="0" lean-forward="false" selection-start-line="9665" selection-start-column="0" selection-end-line="9665" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#!!top" expanded="true" />
           </folding>
@@ -723,8 +731,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blog/arithmetic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="496" column="0" lean-forward="true" selection-start-line="496" selection-start-column="0" selection-end-line="496" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="492" column="47" lean-forward="false" selection-start-line="492" selection-start-column="47" selection-end-line="492" selection-end-column="47" />
           <folding>
             <element signature="e#15#24#0" expanded="true" />
           </folding>

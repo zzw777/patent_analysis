@@ -13,7 +13,7 @@ from bson.objectid import ObjectId
 import datetime
 import __init__
 from mongoengine import connect
-
+import time
 
 
 def index1(request):
@@ -94,20 +94,23 @@ def work(request):
 
             mongodb = connect("patent")
 
+            nowTime = datetime.datetime.now()
             monreport = models.reports()
-            monreport.source_pat_sents = sorc_word
+            monreport._id = nowTime.strftime('%Y%m%d%H%M%S%f')
+            monreport.status = "进行中"
+            monreport.source_pat_sents = [" "]
             monreport.compare_pats = pat_list
-            nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            monreport.time = datetime.datetime.now().strftime('%Y-%m-%d')
-            # monreport.report_html = ""
+            
+            monreport.time = nowTime.strftime('%Y-%m-%d')
+            with open('./templates/blog/report.htm','rb') as f:
+                monreport.report_html.put(f,content_type='html')
+                monreport.report_pdf.put(f,content_type='html')
             monreport.save()
-
-            now_id = ObjectId.from_datetime(nowTime)
-
+            mongodb.close()
 
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l " + pat + " -i " + str(now_id))
+                os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + monreport._id)
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
@@ -118,7 +121,7 @@ def work(request):
                 response['Access-Control-Allow-Origin'] = '*'
                 return response
 
-            mongodb.close()
+            
 
 
     except Exception as e:
@@ -139,7 +142,7 @@ def tasks(request):
         data = list()
         with connect("patent") as mongodb:
             for datum in models.reports.objects():
-                data.append([str(datum.id),datum.time,"已完成" if datum.report_html else "进行中",datum.source_pat_sents,datum.report_html])
+                data.append([str(datum.id),datum.time,datum.status,datum.source_pat_sents,datum.status])
         mongodb.close()
 
         response = HttpResponse(json.dumps(data), content_type="application/json")

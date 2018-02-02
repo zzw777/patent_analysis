@@ -5,13 +5,15 @@ import urllib
 import json
 import bs4
 import sys
-from .import models
+# from . import models
+import models
 import datetime
 # import pdfkit
 import urllib
 import getopt
 
 from bs4 import BeautifulSoup
+from bson.objectid import ObjectId
 from mongoengine import connect
 
 def transition_flag(output):
@@ -122,35 +124,28 @@ def pat_search(output):
 
 def main():
     try:
-        options, args,sec_id = getopt.getopt(sys.argv[1:], "w:l:i", ["word=", "list=", "id="])
+        options, args = getopt.getopt(sys.argv[1:], "w:l:s:", ["word", "list", "sec_id"])
     except getopt.GetoptError:
         sys.exit()
 
     word = ''
-    list = ''
+    LIST = ''
     sec_id = ''
+
     for option, value in options:
         if option in ("-w", "--word"):
             word = value
-            print(word)
-        if option in ("-l", "--list"):
-            list = value.split(";")
-            print(list)
-        if option in ("-i", "--id"):
+            # print(word)
+        elif option in ("-l", "--list"):
+            LIST = value.split(";")
+            # print(LIST)
+        elif option in ("-s", "--sec_id"):
             sec_id = value
-            print(sec_id)
+            # print(sec_id)
 
-    output = get_result(word, list, 'en')
+    output = get_result(word, LIST, 'en')
 
-    mongodb = connect("patent")
-
-
-    monreport = models.reports(id = sec_id)
-    monreport.source_pat_sents = {output['source_pat_sents']}
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
-    monreport.time = nowTime
-    patent_list = pat_search(output)
-    monreport.compare_pats = patent_list
+    
 
     File = open('./templates/blog/report.html', encoding='UTF-8')
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
@@ -486,12 +481,18 @@ def main():
         new_table_tag.append(new_tbody_tag)
         PatComparison.append(new_table_tag)
     fin_html = soup.prettify()
+
+
+    mongodb = connect("patent")
+    monreport = models.reports.objects.all()
+    monreport = models.reports.objects(_id=sec_id)
+    patent_list = pat_search(output)
+    monreport.update(source_pat_sents = output['source_pat_sents'],compare_pats = patent_list)
     with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
         re_html = open('report_html.html','rb')
-        monreport.report_html.put(re_html,content_type='html')
         os.system("wkhtmltopdf report_html.html reprot_pdf.pdf")
-    monreport.save()
+        monreport.report_html.replace(re_html,content_type='html')
     mongodb.close()
 
 
