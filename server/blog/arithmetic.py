@@ -67,13 +67,19 @@ def num_change (num_all,num_front):
     return string_fornt,string_behind
 
 def dec_change(output):
-    result = ""
-    for pat in output:
+    result = []
+    for pat in output['conclusion']['pat_groups_novelty']:
         num = pat[0]['pat_id']
         sim_rate = pat[0]['percent']
         sim_baifen = '%.2f%%' % (sim_rate * 100)
-        result += str(num) + '('+str(sim_baifen) + ')' + ' '
-    return result
+        result.append(num)
+        result.append('(')
+        result.append(sim_baifen)
+        result.append(')')
+        result.append('、')
+    result.pop()
+    result_str = ''.join(str(i) for i in result)
+    return result_str
 
 def font(output):
     source_pat_sents = output['source_pat_sents']
