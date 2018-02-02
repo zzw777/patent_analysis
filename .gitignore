@@ -3,3 +3,4 @@
 apps/*
 env/*
 *.db
+server/*.bin

@@ -59,26 +59,20 @@ def acquire(request):
 
 def dl_report(request):
     try:
-        report = models.reports(name='123')
-        abc = open(os.getcwd() + '/blog/static/123.pdf', 'rb')
-        report.report_pdf.put(abc, content_type='pdf')
-        report.save()
-        if request.method == "POST":
-            record_id = request.POST.get('record_id')
-            print(record_id)
-            task = request.POST.get('task')
-            print(task)
-            number = models.reports.objects(name='123').first()
-            if (task == 'download'):
-                output = number.report_pdf.read()
-                content_type = number.report_pdf.content_type
-                response = HttpResponse(output, content_type)
-                return response
-            elif(task == 'view'):
-                output = number.report_html.read()
-                content_type = number.report_html.content_type
-                response = HttpResponse(output, content_type)
-                return response
+        record_id = str(request.POST.get("record_id"))
+        task = request.POST.get("task")
+        print("views:"+record_id)
+        report = models.reports.objects.get(_id=record_id)
+        if (task == 'download'):
+            output = report.report_pdf.read()
+            content_type = report.report_pdf.content_type
+            response = HttpResponse(output, content_type)
+            return response
+        elif(task == 'view'):
+            output = report.report_html.read()
+            content_type = report.report_html.content_type
+            response = HttpResponse(output, content_type)
+        return response
     except Exception as e:
         print(e)
         response = HttpResponse(json.dumps({"msg": e}), content_type='application/json')
@@ -98,11 +92,12 @@ def work(request):
             monreport = models.reports()
             monreport._id = nowTime.strftime('%Y%m%d%H%M%S%f')
             monreport.status = "进行中"
-            monreport.source_pat_sents = [" "]
+            monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
             
+
             monreport.time = nowTime.strftime('%Y-%m-%d')
-            with open('./templates/blog/report.htm','rb') as f:
+            with open('./templates/blog/report.html','rb') as f:
                 monreport.report_html.put(f,content_type='html')
                 monreport.report_pdf.put(f,content_type='html')
             monreport.save()
@@ -110,7 +105,7 @@ def work(request):
 
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + monreport._id)
+                os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
@@ -142,7 +137,7 @@ def tasks(request):
         data = list()
         with connect("patent") as mongodb:
             for datum in models.reports.objects():
-                data.append([str(datum.id),datum.time,datum.status,datum.source_pat_sents,datum.status])
+                data.append([datum._id,datum.time,datum.status,datum.source_pat_sents,datum.status])
         mongodb.close()
 
         response = HttpResponse(json.dumps(data), content_type="application/json")

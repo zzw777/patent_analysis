@@ -8,7 +8,7 @@ class reports(mongoengine.Document):
     _id = mongoengine.StringField(primary_key=True)
     time = mongoengine.StringField()
     status = mongoengine.StringField()
-    source_pat_sents = mongoengine.ListField()
+    source_pat_sents = mongoengine.StringField()
     compare_pats = mongoengine.ListField()
     report_html = mongoengine.FileField()
     report_pdf = mongoengine.FileField()

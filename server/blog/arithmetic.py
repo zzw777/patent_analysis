@@ -16,6 +16,12 @@ from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from mongoengine import connect
 
+sys.path.append("../apps/patent/")
+sys.path.append("./hello/")
+from main_pat import get_result
+from settings import *
+
+
 def transition_flag(output):
 	compare_pats=output['compare_pats']
 	language=output['language_flag']
@@ -26,7 +32,7 @@ def transition_flag(output):
 			break
 	return flag
 
-def get_result(paragraph1, pat_id, language='en'):
+def get_result_test(paragraph1, pat_id, language='en'):
 	outputfile = open(os.getcwd()+'/output.json', 'r', encoding="utf8")
 	output = json.load(outputfile)
 	outputfile.close()
@@ -143,7 +149,9 @@ def main():
             sec_id = value
             # print(sec_id)
 
-    output = get_result(word, LIST, 'en')
+    output = get_result(word, LIST, {"en":google_model,"zh":model_zh})
+    print(output)
+    # output = get_result_test(word, LIST, 'en')
 
     
 
@@ -488,15 +496,25 @@ def main():
 
 
     mongodb = connect("patent")
-    monreport = models.reports.objects.all()
-    monreport = models.reports.objects(_id=sec_id)
-    patent_list = pat_search(output)
-    monreport.update(source_pat_sents = output['source_pat_sents'],compare_pats = patent_list)
+    newreport = models.reports()
+    newreport.source_pat_sents = output['source_pat_sents']
+    newreport.compare_pats = pat_search(output)
     with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
-        re_html = open('report_html.html','rb')
-        os.system("wkhtmltopdf report_html.html reprot_pdf.pdf")
-        monreport.report_html.replace(re_html,content_type='html')
+    os.system("wkhtmltopdf report_html.html report_pdf.pdf")
+    with open('report_html.html','rb') as re_html:
+        newreport.report_html.put(re_html,content_type='html')
+    with open('report_pdf.pdf','rb') as re_pdf:
+        newreport.report_pdf.put(re_pdf, content_type='pdf')
+    monreport = models.reports.objects.all()
+    monreport = models.reports.objects(_id=sec_id)
+    monreport.update(
+        # source_pat_sents=newreport.source_pat_sents, 
+        status="已完成",
+        compare_pats=newreport.compare_pats,
+        # report_html=newreport.report_html,
+        # report_pdf=newreport.report_pdf,
+        )
     mongodb.close()
 
 
