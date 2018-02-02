@@ -59,6 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hello.wsgi.application'
 
+STATIC_ROOT = 'blog/static/directory/'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -87,6 +88,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+WKHTMLTOPDF_CMD_OPTIONS = {
+    'quiet': True,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -7,6 +7,7 @@ import bs4
 import sys
 from .import models
 import datetime
+# import pdfkit
 import urllib
 import getopt
 
@@ -151,7 +152,7 @@ def main():
     patent_list = pat_search(output)
     monreport.compare_pats = patent_list
 
-    File = open('./templates/blog/report.htm', encoding='UTF-8')
+    File = open('./templates/blog/report.html', encoding='UTF-8')
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
 
     flag = transition_flag(output)
@@ -489,6 +490,7 @@ def main():
         f.write(fin_html.encode('utf-8'))
         re_html = open('report_html.html','rb')
         monreport.report_html.put(re_html,content_type='html')
+        os.system("wkhtmltopdf report_html.html reprot_pdf.pdf")
     monreport.save()
     mongodb.close()
 
