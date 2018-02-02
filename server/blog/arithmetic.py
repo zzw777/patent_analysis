@@ -269,12 +269,15 @@ def main():
     pat_list = pat_search(output)
     for index in pat_list:
         PatComparison = soup.find('div', {'name': "PatComparison"})
+        new_parent_tag = soup.new_tag("div")
+        new_parent_tag.attrs = {'style':'page-break-before:left'}
         new_div_tag = soup.new_tag("div")
         new_font_tag=soup.new_tag("font")
         new_div_tag.attrs = {'class':"container",'style':"text-align: center"}
         new_font_tag.append('专利'+index+'与该创新性描述的比对报告')
         new_font_tag.attrs = {'size': '6'}
         new_div_tag.append(new_font_tag)
+        new_parent_tag.append(new_div_tag)
 
         new_table_tag = soup.new_tag("table")
         new_table_tag.attrs = {'class':"bordered"}
@@ -479,7 +482,8 @@ def main():
                 new_tbody_tag.append(new_tr_tag7)
         new_table_tag.append(new_div_tag)
         new_table_tag.append(new_tbody_tag)
-        PatComparison.append(new_table_tag)
+        new_parent_tag.append(new_table_tag)
+        PatComparison.append(new_parent_tag)
     fin_html = soup.prettify()
 
 
