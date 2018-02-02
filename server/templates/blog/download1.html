@@ -182,7 +182,7 @@
                       { data: 3, title: "创新性描述", className: "dt-left"},
                       { data: 4, title: "报告", width: "10%", className: "dt-center",
                         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                          if (sData!="") {
+                          if (sData=="已完成") {
                             $(nTd).html("<a onclick=\"viewreport('"+oData[0]+"','view')\" target=\"view_window\">查看</a><br><a onclick=\"viewreport('"+oData[0]+"','download')\" target=\"view_window\">下载</a>")
                           }
                           else {

@@ -22,8 +22,8 @@ sys.path.append("./hello/")
 from main_pat import main
 import gensim
 
-google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
-model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
+# google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+# model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
 
 def transition_flag(output):
 	compare_pats=output['compare_pats']
@@ -158,11 +158,9 @@ def updateReport(word,LIST,sec_id,nowtime):
     #         sec_id = value
     #         print(sec_id)
 
-    # output = get_result(word, LIST, QUEUE.get())
-    output = main(word, LIST, {"en":google_model,"zh":model_zh})
-
+    # output = main(word, LIST, {"en":google_model,"zh":model_zh})
     # print(output)
-    # output = get_result_test(word, LIST, 'en')
+    output = get_result_test(word, LIST, 'en')
 
     
 
@@ -507,11 +505,11 @@ def updateReport(word,LIST,sec_id,nowtime):
 
 
     mongodb = connect("patent")
-    models.reports.objects.filter(_id=sec_id).delete()
+    models.reports.objects.get(_id=sec_id).delete()
     newreport = models.reports()
     newreport.id = sec_id
     newreport.source_pat_sents = word
-    newreport.compare_pats =LIST
+    newreport.compare_pats = LIST
     newreport.status = '已完成'
     newreport.time = nowtime
     # newreport.source_pat_sents = output['source_pat_sents']
@@ -524,7 +522,7 @@ def updateReport(word,LIST,sec_id,nowtime):
     with open('report_pdf.pdf','rb') as re_pdf:
         newreport.report_pdf.put(re_pdf, content_type='pdf')
     newreport.save()
-    monreport = models.reports.objects.all()
+    # monreport = models.reports.objects.all()
     # monreport = models.reports.objects(_id=sec_id)
     # monreport.update(
     #     # source_pat_sents=newreport.source_pat_sents,

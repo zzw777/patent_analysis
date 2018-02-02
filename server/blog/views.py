@@ -14,7 +14,8 @@ import datetime
 import __init__
 from mongoengine import connect
 import time
-
+import multiprocessing
+from arithmetic import updateReport
 
 def index1(request):
     return render(request, 'blog/index1.html')
@@ -93,10 +94,10 @@ def work(request):
             monreport.status = "进行中"
             monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
-            nowTime = nowTime.strftime('%Y-%m-%d %M:%S')
+            nowTimeStr = nowTime.strftime('%Y-%m-%d %M:%S')
             
 
-            monreport.time = nowTime.strftime('%Y-%m-%d %M:%S')
+            monreport.time = nowTimeStr
             # with open('./templates/blog/report.html','rb') as f:
             #     monreport.report_html.put(f,content_type='html')
             #     monreport.report_pdf.put(f,content_type='html')
@@ -109,7 +110,7 @@ def work(request):
                 # print("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
                 # os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
                 def analyze():
-                    updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'),nowTime)
+                    updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'),nowTimeStr)
                 service = multiprocessing.Process(name='analyze',target=analyze)
                 service.start()
                 # service.join()
