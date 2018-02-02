@@ -9,6 +9,7 @@ from django.shortcuts import render
 from mongoengine import connect
 from . import models
 from . import xwk
+from bson.objectid import ObjectId
 import datetime
 import __init__
 from mongoengine import connect
@@ -90,26 +91,23 @@ def work(request):
             sorc_word = request.POST.get('word')
             pat = request.POST.get('list')
             pat_list = request.POST.get('list').split(";")
-            # pat_list = re.split(',|，|\n| ', pat_list)
-            # pat_list = [l for l in pat_list if len(l) != 0]
-            # list = ',|，|\n| '.join(pat_list)
 
             mongodb = connect("patent")
 
             monreport = models.reports()
             monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
+            nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             monreport.time = datetime.datetime.now().strftime('%Y-%m-%d')
             # monreport.report_html = ""
             monreport.save()
 
+            now_id = ObjectId.from_datetime(nowTime)
 
-
-            print(monreport)
 
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
-                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l " + pat + " -i " + str(models.reports.objects()[-1].id))
+                os.system("python ./blog/arithmetic.py"+" -w" + sorc_word + " -l " + pat + " -i " + str(now_id))
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
                 response['Access-Control-Allow-Origin'] = '*'
