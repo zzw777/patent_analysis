@@ -18,9 +18,12 @@ from mongoengine import connect
 
 sys.path.append("../apps/patent/")
 sys.path.append("./hello/")
-from main_pat import get_result
-from settings import *
 
+from main_pat import main
+import gensim
+
+google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
 
 def transition_flag(output):
 	compare_pats=output['compare_pats']
@@ -68,7 +71,7 @@ def num_change (num_all,num_front):
 
 def dec_change(output):
     result = []
-    for pat in output['conclusion']['pat_groups_novelty']:
+    for pat in output:
         num = pat[0]['pat_id']
         sim_rate = pat[0]['percent']
         sim_baifen = '%.2f%%' % (sim_rate * 100)
@@ -134,34 +137,31 @@ def pat_search(output):
         pat_id_list.append(compare_pats['pat_id'])
     return (pat_id_list)
 
-def main():
-    try:
-        options, args = getopt.getopt(sys.argv[1:], "w:l:s:t:", ["word", "list", "sec_id","time"])
-    except getopt.GetoptError:
-        sys.exit()
+def updateReport(word,LIST,sec_id,nowtime):
+    # try:
+    #     options, args = getopt.getopt(sys.argv[1:], "w:l:s:", ["word", "list", "sec_id"])
+    # except getopt.GetoptError:
+    #     sys.exit()
 
-    word = ''
-    LIST = ''
-    sec_id = ''
-    nowtime = ''
-    for option, value in options:
-        if option in ("-w", "--word"):
-            word = value
-            # print(word)
-        elif option in ("-l", "--list"):
-            LIST = value.split(";")
-            # print(LIST)
-        elif option in ("-s", "--sec_id"):
-            sec_id = value
-            # print(sec_id)
-        elif option in ("-s", "--sec_id"):
-            sec_id = value
-            # print(sec_id)
-        elif option in ("-t", "--time"):
-            nowtime = value
-            # print(sec_id)
-    output = get_result(word, LIST, {"en":google_model,"zh":model_zh})
-    print(output)
+    # word = ''
+    LIST = LIST.split(";")
+    # sec_id = ''
+    
+    # for option, value in options:
+    #     if option in ("-w", "--word"):
+    #         word = value
+    #         print(word)
+    #     elif option in ("-l", "--list"):
+    #         LIST = value.split(";")
+    #         print(LIST)
+    #     elif option in ("-s", "--sec_id"):
+    #         sec_id = value
+    #         print(sec_id)
+
+    # output = get_result(word, LIST, QUEUE.get())
+    output = main(word, LIST, {"en":google_model,"zh":model_zh})
+
+    # print(output)
     # output = get_result_test(word, LIST, 'en')
 
     
