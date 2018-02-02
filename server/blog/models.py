@@ -5,9 +5,10 @@ from django.db import models
 import mongoengine
 
 class reports(mongoengine.Document):
-    # id = mongoengine.IntField()
+    _id = mongoengine.StringField(primary_key=True)
     time = mongoengine.StringField()
-    source_pat_sents = mongoengine.StringField()
+    status = mongoengine.StringField()
+    source_pat_sents = mongoengine.ListField()
     compare_pats = mongoengine.ListField()
     report_html = mongoengine.FileField()
     report_pdf = mongoengine.FileField()
