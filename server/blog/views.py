@@ -92,10 +92,9 @@ def work(request):
             monreport = models.reports()
             monreport._id = nowTime.strftime('%Y%m%d%H%M%S%f')
             monreport.status = "进行中"
-            monreport.source_pat_sents = [" "]
+            monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
             
-            print(monreport._id)
 
             monreport.time = nowTime.strftime('%Y-%m-%d')
             with open('./templates/blog/report.html','rb') as f:
