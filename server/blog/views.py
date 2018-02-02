@@ -4,7 +4,7 @@ import json
 import os
 import re
 import sys
-from django.http import HttpResponse
+from django.http import HttpResponse,StreamingHttpResponse
 from django.shortcuts import render
 from mongoengine import connect
 from . import models
@@ -94,7 +94,7 @@ def work(request):
             monreport.status = "进行中"
             monreport.source_pat_sents = sorc_word
             monreport.compare_pats = pat_list
-            nowTimeStr = nowTime.strftime('%Y-%m-%d %M:%S')
+            nowTimeStr = nowTime.strftime('%Y-%m-%d %H:%M')
             
 
             monreport.time = nowTimeStr

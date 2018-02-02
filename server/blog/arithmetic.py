@@ -518,9 +518,9 @@ def updateReport(word,LIST,sec_id,nowtime):
         f.write(fin_html.encode('utf-8'))
     os.system("wkhtmltopdf report_html.html report_pdf.pdf")
     with open('report_html.html','rb') as re_html:
-        newreport.report_html.put(re_html,content_type='html')
+        newreport.report_html.put(re_html,content_type='text/html')
     with open('report_pdf.pdf','rb') as re_pdf:
-        newreport.report_pdf.put(re_pdf, content_type='pdf')
+        newreport.report_pdf.put(re_pdf, content_type='application/pdf')
     newreport.save()
     # monreport = models.reports.objects.all()
     # monreport = models.reports.objects(_id=sec_id)
@@ -531,8 +531,6 @@ def updateReport(word,LIST,sec_id,nowtime):
     #     # report_html=newreport.report_html,
     #     # report_pdf=newreport.report_pdf,
     #     )
-
-
     mongodb.close()
 
 
