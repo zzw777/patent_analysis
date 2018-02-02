@@ -22,7 +22,8 @@ from main_pat import main
 import gensim
 
 
-
+google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
 
 
 def transition_flag(output):
@@ -71,7 +72,7 @@ def num_change (num_all,num_front):
 
 def dec_change(output):
     result = []
-    for pat in output['conclusion']['pat_groups_novelty']:
+    for pat in output:
         num = pat[0]['pat_id']
         sim_rate = pat[0]['percent']
         sim_baifen = '%.2f%%' % (sim_rate * 100)
@@ -146,8 +147,7 @@ def updateReport(word,LIST,sec_id):
     # word = ''
     LIST = LIST.split(";")
     # sec_id = ''
-    google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
-    model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
+    
     # for option, value in options:
     #     if option in ("-w", "--word"):
     #         word = value
@@ -161,6 +161,8 @@ def updateReport(word,LIST,sec_id):
 
     # output = get_result(word, LIST, QUEUE.get())
     output = main(word, LIST, {"en":google_model,"zh":model_zh})
+
+    # print(output)
     # output = get_result_test(word, LIST, 'en')
 
 
@@ -248,6 +250,8 @@ def updateReport(word,LIST,sec_id):
     MinimumRevealedPatNum = soup.find('font', {'name': "MinimumRevealedPatNum"})
     MinimumRevealedPatNum.string = str(output['conclusion']['min_reveal_pat_num'])
 
+    print(output['conclusion']['pat_groups_novelty'])
+    print(type(output['conclusion']['pat_groups_novelty']))
     rev_details = dec_change(output['conclusion']['pat_groups_novelty'])
     RevealedDetails = soup.find('font', {'name': "RevealedDetails"})
     RevealedDetails.string = str(rev_details)

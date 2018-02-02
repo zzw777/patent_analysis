@@ -63,7 +63,6 @@ def dl_report(request):
     try:
         record_id = str(request.POST.get("record_id"))
         task = request.POST.get("task")
-        print("views:"+record_id)
         report = models.reports.objects.get(_id=record_id)
         if (task == 'download'):
             output = report.report_pdf.read()
@@ -108,13 +107,12 @@ def work(request):
             if len(pat_list) != 0 and len(pat_list) != 0:
                 data = {'msg': '任务已建立，正在分析中。。。'}
                 
-                updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'))
                 # print("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
                 # os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # def analyze():
-                #     os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                # service = multiprocessing.Process(name='analyze',target=analyze)
-                # service.start()
+                def analyze():
+                    updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'))
+                service = multiprocessing.Process(name='analyze',target=analyze)
+                service.start()
                 # service.join()
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")
