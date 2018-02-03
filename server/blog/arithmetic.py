@@ -22,8 +22,8 @@ sys.path.append("./hello/")
 from main_pat import main
 import gensim
 
-# google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
-# model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
+google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
 
 def transition_flag(output):
 	compare_pats=output['compare_pats']
@@ -158,9 +158,9 @@ def updateReport(word,LIST,sec_id,nowtime):
     #         sec_id = value
     #         print(sec_id)
 
-    # output = main(word, LIST, {"en":google_model,"zh":model_zh})
+    output = main(word, LIST, {"en":google_model,"zh":model_zh})
     # print(output)
-    output = get_result_test(word, LIST, 'en')
+    # output = get_result_test(word, LIST, 'en')
 
     
 
@@ -181,12 +181,12 @@ def updateReport(word,LIST,sec_id,nowtime):
         source_pat_sents_zh.string = str(source_pat_sent_zh)
 
     inno = output['conclusion']['innovative']
-    if inno == '无':
+    if inno == '无创新性':
         innovative = soup.find('button',{'name':"InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class']='btn btn-outline-danger'
 
-    elif inno == '有':
+    elif inno == '有创新性':
         innovative = soup.find('button', {'name': "InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class'] = 'btn btn-danger'
@@ -194,10 +194,10 @@ def updateReport(word,LIST,sec_id,nowtime):
     nov = output['conclusion']['novelty']
     novelty = soup.find('button', {'name': "NoveltyConclusion"})
     novelty.string = str(nov)
-    if nov == '无':
+    if nov == '无新颖性':
         novelty['class'] = 'btn btn-outline-danger'
 
-    elif nov == '有':
+    elif nov == '有新颖性':
         novelty['class'] = 'btn btn-danger'
 
     cre = output['conclusion']['creativity']
@@ -206,15 +206,15 @@ def updateReport(word,LIST,sec_id,nowtime):
     button2 = soup.find('button', {'name': "button2"})
     button3 = soup.find('button', {'name': "button3"})
     button2.string = str(cre)
-    if cre == '无（弱）':
+    if cre == '无(弱)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-outline-danger'
         button3['class'] = 'btn btn-outline-danger'
-    elif cre == '有（中）':
+    elif cre == '有(中)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-danger'
         button3['class'] = 'btn btn-outline-danger'
-    elif cre == '有（强）':
+    elif cre == '有(强)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-danger'
         button3['class'] = 'btn btn-danger'
@@ -536,7 +536,7 @@ def updateReport(word,LIST,sec_id,nowtime):
 
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__": updateReport()
 
 
 
