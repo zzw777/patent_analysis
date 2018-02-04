@@ -11,7 +11,7 @@ from . import models
 from . import xwk
 from bson.objectid import ObjectId
 import datetime
-import __init__
+from . imp
 from mongoengine import connect
 import time
 
@@ -108,10 +108,10 @@ def work(request):
 
                 # print("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
                 # os.system("python ./blog/arithmetic.py -w " + sorc_word + " -l " + pat + " -s " + nowTime.strftime('%Y%m%d%H%M%S%f'))
-                def analyze():
-                    updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'),nowTime)
-                service = multiprocessing.Process(name='analyze',target=analyze)
-                service.start()
+                # def analyze():
+                #     updateReport(sorc_word,pat,nowTime.strftime('%Y%m%d%H%M%S%f'),nowTime)
+                # service = multiprocessing.Process(name='analyze',target=analyze)
+                # service.start()
                 # service.join()
 
                 response = HttpResponse(json.dumps(data), content_type="application/json")

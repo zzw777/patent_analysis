@@ -6,7 +6,7 @@ import json
 import bs4
 import sys
 # from . import models
-import models
+from .import models
 import datetime
 # import pdfkit
 import urllib
@@ -15,15 +15,15 @@ import getopt
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from mongoengine import connect
+#
+# sys.path.append("../apps/patent/")
+# sys.path.append("./hello/")
 
-sys.path.append("../apps/patent/")
-sys.path.append("./hello/")
-
-from main_pat import main
-import gensim
-
-google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
-model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
+# from .../patent import _main_pat.py
+# import gensim
+#
+# google_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin',binary=True)
+# model_zh = gensim.models.KeyedVectors.load_word2vec_format('news_12g_baidubaike_20g_novel_90g_embedding_64.bin',binary=True)
 
 def transition_flag(output):
 	compare_pats=output['compare_pats']
@@ -88,10 +88,32 @@ def font(output):
     source_pat_sents = output['source_pat_sents']
     detail = output['conclusion']['detail']
     result = []
-    for d in detail:
-        reveal_pats = ''.join(str(i)+' ' for i in d['reveal_pats'])
-        sim_pats = ''.join(str(i) +' ' for i in d['sim_pats'])
-        result.append((reveal_pats,sim_pats,source_pat_sents[d['sent_id']]))
+    # print(detail)
+    # print(len(detail))
+    for (index,d) in enumerate(detail):
+        reveal_list = []
+        for i in d['reveal_pats']:
+            reveal_list.append(i)
+            reveal_list.append('、')
+        try:
+            reveal_list.pop()
+        except:
+            pass
+        reveal_pats = ''.join(str(i) for i in reveal_list)
+        sim_pat_list = []
+        for i in d['sim_pats']:
+            sim_pat_list.append(i)
+            sim_pat_list.append('、')
+        try:
+            sim_pat_list.pop()
+        except:
+            pass
+        sim_pats = ''.join(str(i) for i in sim_pat_list)
+        if index == len(detail) - 1:
+            result.append((reveal_pats,sim_pats,source_pat_sents[d['sent_id']],'。'))
+        else:
+            result.append((reveal_pats, sim_pats, source_pat_sents[d['sent_id']], ';'))
+   #print(result)
     return result
 
 
@@ -137,13 +159,13 @@ def pat_search(output):
         pat_id_list.append(compare_pats['pat_id'])
     return (pat_id_list)
 
-def updateReport(word,LIST,sec_id,nowtime):
+def main(word,LIST,sec_id,nowtime):
     # try:
     #     options, args = getopt.getopt(sys.argv[1:], "w:l:s:", ["word", "list", "sec_id"])
     # except getopt.GetoptError:
     #     sys.exit()
 
-    # word = ''
+    word = ''
     LIST = LIST.split(";")
     # sec_id = ''
     
@@ -159,10 +181,10 @@ def updateReport(word,LIST,sec_id,nowtime):
     #         print(sec_id)
 
     # output = get_result(word, LIST, QUEUE.get())
-    output = main(word, LIST, {"en":google_model,"zh":model_zh})
+    # output = get_result_test(word, LIST, en)
 
     # print(output)
-    # output = get_result_test(word, LIST, 'en')
+    output = get_result_test(word, LIST, 'en')
 
     
 
@@ -170,7 +192,7 @@ def updateReport(word,LIST,sec_id,nowtime):
     soup = bs4.BeautifulSoup(File.read(), 'html.parser')
 
     flag = transition_flag(output)
-    if flag == '1':
+    if flag == 1:
         source_pat_sents_zh = soup.find('p',{'name':"source_pat_sents_zh"})
         source_pat_sents_en = soup.find('p', {'name': "source_pat_sents_en"})
         source_pat_sent_en = ''.join(s for s in output['source_pat_sents_en'])
@@ -183,12 +205,12 @@ def updateReport(word,LIST,sec_id,nowtime):
         source_pat_sents_zh.string = str(source_pat_sent_zh)
 
     inno = output['conclusion']['innovative']
-    if inno == '无':
+    if inno == '无创新性':
         innovative = soup.find('button',{'name':"InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class']='btn btn-outline-danger'
 
-    elif inno == '有':
+    elif inno == '有创新性':
         innovative = soup.find('button', {'name': "InnovationConclusion"})
         innovative.string = str(inno)
         innovative['class'] = 'btn btn-danger'
@@ -196,10 +218,10 @@ def updateReport(word,LIST,sec_id,nowtime):
     nov = output['conclusion']['novelty']
     novelty = soup.find('button', {'name': "NoveltyConclusion"})
     novelty.string = str(nov)
-    if nov == '无':
+    if nov == '无新颖性':
         novelty['class'] = 'btn btn-outline-danger'
 
-    elif nov == '有':
+    elif nov == '有新颖性':
         novelty['class'] = 'btn btn-danger'
 
     cre = output['conclusion']['creativity']
@@ -208,15 +230,15 @@ def updateReport(word,LIST,sec_id,nowtime):
     button2 = soup.find('button', {'name': "button2"})
     button3 = soup.find('button', {'name': "button3"})
     button2.string = str(cre)
-    if cre == '无（弱）':
+    if cre == '无(弱)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-outline-danger'
         button3['class'] = 'btn btn-outline-danger'
-    elif cre == '有（中）':
+    elif cre == '有(中)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-danger'
         button3['class'] = 'btn btn-outline-danger'
-    elif cre == '有（强）':
+    elif cre == '有(强)':
         button1['class'] = 'btn btn-danger'
         button2['class'] = 'btn btn-danger'
         button3['class'] = 'btn btn-danger'
@@ -234,13 +256,13 @@ def updateReport(word,LIST,sec_id,nowtime):
     RevealedTechnicalFeatureNum.string = str(len(qian.split('、')))
 
     UnrevealedTechnicalFeature = soup.find('font', {'name': "UnrevealedTechnicalFeature"})
-    UnrevealedTechnicalFeature.string = str(hou)
-
     UnrevealedTechnicalFeatureNum = soup.find('font', {'name': "UnrevealedTechnicalFeatureNum"})
-    if hou == '0':
-        UnrevealedTechnicalFeatureNum.string = str('0')
     if hou != '0':
+        UnrevealedTechnicalFeature.string = str('技术特征'+hou)
         UnrevealedTechnicalFeatureNum.string = str(hou)
+    else:
+        UnrevealedTechnicalFeature.string = str('无技术特征')
+        UnrevealedTechnicalFeatureNum.string = str('0')
 
     RevealedRatio = soup.find('font', {'name': "RevealedRatio"})
     reveal_rate = output['conclusion']['reveal_rate']
@@ -275,14 +297,14 @@ def updateReport(word,LIST,sec_id,nowtime):
     font_result = font(output)
     ComparisonDetails = soup.find('ul', {'name': "ComparisonDetails"})
     for sen in font_result:
-        (front, middle, after) = sen
-        if front == "" and  middle == "":
+        (front, middle, after,fuhao) = sen
+        if front == "" and middle == "":
             new_li_tag = soup.new_tag("li")
-            new_li_tag.append(str('技术特征“'+after+'”未被对比专利揭示'))
+            new_li_tag.append(str('技术特征“' + after + '”未被专利揭示' + fuhao))
             ComparisonDetails.append(new_li_tag)
         else:
             new_li_tag = soup.new_tag("li")
-            new_li_tag.append(str('技术特征“' + after + '”被对比专利中公开号为'+front+'的专利揭示，且与'+middle+'的技术特征相似度较高；'))
+            new_li_tag.append(str('技术特征“' + after + '”被对比专利中公开号为' + front + '的专利揭示，且与' + middle +'的技术特征相似度较高' +fuhao))
             ComparisonDetails.append(new_li_tag)
 
     pat_list = pat_search(output)
@@ -518,7 +540,7 @@ def updateReport(word,LIST,sec_id,nowtime):
     # newreport.compare_pats = pat_search(output)
     with open('report_html.html','wb') as f:
         f.write(fin_html.encode('utf-8'))
-    os.system("wkhtmltopdf report_html.html report_pdf.pdf")
+    os.system("wkhtmltopdf --zoom 0.8 --disable-smart-shrinking report_html.html report_pdf.pdf")
     with open('report_html.html','rb') as re_html:
         newreport.report_html.put(re_html,content_type='html')
     with open('report_pdf.pdf','rb') as re_pdf:
