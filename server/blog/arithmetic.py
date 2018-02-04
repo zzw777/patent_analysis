@@ -15,9 +15,9 @@ import getopt
 from bs4 import BeautifulSoup
 from bson.objectid import ObjectId
 from mongoengine import connect
-#
-# sys.path.append("../apps/patent/")
-# sys.path.append("./hello/")
+
+sys.path.append("../apps/patent/")
+sys.path.append("./hello/")
 
 # from .../patent import _main_pat.py
 # import gensim
@@ -180,11 +180,10 @@ def main(word,LIST,sec_id,nowtime):
     #         sec_id = value
     #         print(sec_id)
 
-    # output = get_result(word, LIST, QUEUE.get())
-    # output = get_result_test(word, LIST, en)
 
-    # print(output)
-    output = get_result_test(word, LIST, 'en')
+    # output = main(word, LIST, {"en":google_model,"zh":model_zh})
+    output = get_result_test(word,list,'en')
+
 
     
 
@@ -193,15 +192,34 @@ def main(word,LIST,sec_id,nowtime):
 
     flag = transition_flag(output)
     if flag == 1:
-        source_pat_sents_zh = soup.find('p',{'name':"source_pat_sents_zh"})
+        source_pat_sents_zh = soup.find('p', {'name': "source_pat_sents_zh"})
         source_pat_sents_en = soup.find('p', {'name': "source_pat_sents_en"})
-        source_pat_sent_en = ''.join(s for s in output['source_pat_sents_en'])
-        source_pat_sent_zh = ''.join(s for s in output['source_pat_sents_zh'])
+        temp = []
+        for s in output['source_pat_sents_en']:
+            temp.append(s)
+            temp.append(';')
+        temp.pop()
+        temp.append('.')
+        source_pat_sent_en = ''.join(s for s in temp)
+
+        temp = []
+        for s in output['source_pat_sents_zh']:
+            temp.append(s)
+            temp.append('；')
+        temp.pop()
+        temp.append('。')
+        source_pat_sent_zh = ''.join(s for s in temp)
         source_pat_sents_zh.string = str(source_pat_sent_zh)
         source_pat_sents_en.string = str(source_pat_sent_en)
     else:
         source_pat_sents_zh = soup.find('p', {'name': "source_pat_sents_zh"})
-        source_pat_sent_zh = ''.join(s for s in output['source_pat_sents'])
+        temp = []
+        for s in output['source_pat_sents_zh']:
+            temp.append(s)
+            temp.append('；')
+        temp.pop()
+        temp.append('。')
+        source_pat_sent_zh = ''.join(s for s in temp)
         source_pat_sents_zh.string = str(source_pat_sent_zh)
 
     inno = output['conclusion']['innovative']
@@ -529,11 +547,11 @@ def main(word,LIST,sec_id,nowtime):
 
 
     mongodb = connect("patent")
-    models.reports.objects.filter(_id=sec_id).delete()
+    models.reports.objects.get(_id=sec_id).delete()
     newreport = models.reports()
     newreport.id = sec_id
     newreport.source_pat_sents = word
-    newreport.compare_pats =LIST
+    newreport.compare_pats = LIST
     newreport.status = '已完成'
     newreport.time = nowtime
     # newreport.source_pat_sents = output['source_pat_sents']
@@ -542,11 +560,11 @@ def main(word,LIST,sec_id,nowtime):
         f.write(fin_html.encode('utf-8'))
     os.system("wkhtmltopdf --zoom 0.8 --disable-smart-shrinking report_html.html report_pdf.pdf")
     with open('report_html.html','rb') as re_html:
-        newreport.report_html.put(re_html,content_type='html')
+        newreport.report_html.put(re_html,content_type='text/html')
     with open('report_pdf.pdf','rb') as re_pdf:
-        newreport.report_pdf.put(re_pdf, content_type='pdf')
+        newreport.report_pdf.put(re_pdf, content_type='application/pdf')
     newreport.save()
-    monreport = models.reports.objects.all()
+    # monreport = models.reports.objects.all()
     # monreport = models.reports.objects(_id=sec_id)
     # monreport.update(
     #     # source_pat_sents=newreport.source_pat_sents,
@@ -555,14 +573,12 @@ def main(word,LIST,sec_id,nowtime):
     #     # report_html=newreport.report_html,
     #     # report_pdf=newreport.report_pdf,
     #     )
-
-
     mongodb.close()
 
 
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__": updateReport()
 
 
 
